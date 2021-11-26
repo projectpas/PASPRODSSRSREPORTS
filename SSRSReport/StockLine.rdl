@@ -3,8 +3,8 @@
   <df:DefaultFontFamily>Segoe UI</df:DefaultFontFamily>
   <AutoRefresh>0</AutoRefresh>
   <DataSources>
-    <DataSource Name="DataSource1">
-      <DataSourceReference>ShareDataSource</DataSourceReference>
+    <DataSource Name="PasReportDataSource">
+      <DataSourceReference>PasReportDataSource</DataSourceReference>
       <rd:SecurityType>DataBase</rd:SecurityType>
       <rd:DataSourceID>fe7184d7-5d5c-43fb-98ff-cca9a3322728</rd:DataSourceID>
     </DataSource>
@@ -12,7 +12,7 @@
   <DataSets>
     <DataSet Name="DataSet1">
       <Query>
-        <DataSourceName>DataSource1</DataSourceName>
+        <DataSourceName>PasReportDataSource</DataSourceName>
         <QueryParameters>
           <QueryParameter Name="@mastercompanyid">
             <Value>=Parameters!mastercompanyid.Value</Value>
@@ -211,10 +211,10 @@
     </DataSet>
     <DataSet Name="CO">
       <Query>
-        <DataSourceName>DataSource1</DataSourceName>
+        <DataSourceName>PasReportDataSource</DataSourceName>
         <QueryParameters>
           <QueryParameter Name="@mastercompanyid">
-            <Value>7</Value>
+            <Value>=Parameters!mastercompanyid.Value</Value>
           </QueryParameter>
         </QueryParameters>
         <CommandType>StoredProcedure</CommandType>
@@ -233,7 +233,7 @@
     </DataSet>
     <DataSet Name="BU">
       <Query>
-        <DataSourceName>DataSource1</DataSourceName>
+        <DataSourceName>PasReportDataSource</DataSourceName>
         <QueryParameters>
           <QueryParameter Name="@Level1">
             <Value>=Parameters!level1.Value</Value>
@@ -258,7 +258,7 @@
     </DataSet>
     <DataSet Name="Div">
       <Query>
-        <DataSourceName>DataSource1</DataSourceName>
+        <DataSourceName>PasReportDataSource</DataSourceName>
         <QueryParameters>
           <QueryParameter Name="@Level2">
             <Value>=Parameters!level2.Value</Value>
@@ -283,7 +283,7 @@
     </DataSet>
     <DataSet Name="Dept">
       <Query>
-        <DataSourceName>DataSource1</DataSourceName>
+        <DataSourceName>PasReportDataSource</DataSourceName>
         <QueryParameters>
           <QueryParameter Name="@Level3">
             <Value>=Parameters!level3.Value</Value>
@@ -308,9 +308,9 @@
     </DataSet>
     <DataSet Name="DataSet2">
       <Query>
-        <DataSourceName>DataSource1</DataSourceName>
+        <DataSourceName>PasReportDataSource</DataSourceName>
         <CommandText>select Mastercompanyid, companyname
- from dbo.Mastercompany WHERE (MasterCompanyId = 7)</CommandText>
+ from dbo.Mastercompany WHERE (MasterCompanyId = 1)</CommandText>
       </Query>
       <Fields>
         <Field Name="Mastercompanyid">
@@ -3732,15 +3732,6 @@
       <DataType>DateTime</DataType>
       <Prompt>From date</Prompt>
     </ReportParameter>
-    <ReportParameter Name="todate">
-      <DataType>DateTime</DataType>
-      <DefaultValue>
-        <Values>
-          <Value>=Today</Value>
-        </Values>
-      </DefaultValue>
-      <Prompt>To Date</Prompt>
-    </ReportParameter>
     <ReportParameter Name="mastercompanyid">
       <DataType>Integer</DataType>
       <DefaultValue>
@@ -3776,6 +3767,15 @@
         </DataSetReference>
       </ValidValues>
       <MultiValue>true</MultiValue>
+    </ReportParameter>
+    <ReportParameter Name="todate">
+      <DataType>DateTime</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>=Today</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>To Date</Prompt>
     </ReportParameter>
     <ReportParameter Name="level2">
       <DataType>String</DataType>
@@ -3836,7 +3836,7 @@
   </ReportParameters>
   <ReportParametersLayout>
     <GridLayoutDefinition>
-      <NumberOfColumns>4</NumberOfColumns>
+      <NumberOfColumns>3</NumberOfColumns>
       <NumberOfRows>5</NumberOfRows>
       <CellDefinitions>
         <CellDefinition>
@@ -3845,33 +3845,33 @@
           <ParameterName>fromdate</ParameterName>
         </CellDefinition>
         <CellDefinition>
-          <ColumnIndex>3</ColumnIndex>
+          <ColumnIndex>2</ColumnIndex>
           <RowIndex>0</RowIndex>
           <ParameterName>level1</ParameterName>
         </CellDefinition>
         <CellDefinition>
-          <ColumnIndex>3</ColumnIndex>
+          <ColumnIndex>2</ColumnIndex>
           <RowIndex>1</RowIndex>
           <ParameterName>level2</ParameterName>
         </CellDefinition>
         <CellDefinition>
-          <ColumnIndex>3</ColumnIndex>
+          <ColumnIndex>2</ColumnIndex>
           <RowIndex>2</RowIndex>
           <ParameterName>level3</ParameterName>
         </CellDefinition>
         <CellDefinition>
-          <ColumnIndex>3</ColumnIndex>
+          <ColumnIndex>2</ColumnIndex>
           <RowIndex>3</RowIndex>
           <ParameterName>level4</ParameterName>
         </CellDefinition>
         <CellDefinition>
-          <ColumnIndex>2</ColumnIndex>
+          <ColumnIndex>1</ColumnIndex>
           <RowIndex>0</RowIndex>
           <ParameterName>mastercompanyid</ParameterName>
         </CellDefinition>
         <CellDefinition>
-          <ColumnIndex>1</ColumnIndex>
-          <RowIndex>0</RowIndex>
+          <ColumnIndex>0</ColumnIndex>
+          <RowIndex>1</RowIndex>
           <ParameterName>todate</ParameterName>
         </CellDefinition>
       </CellDefinitions>

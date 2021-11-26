@@ -3,8 +3,8 @@
   <df:DefaultFontFamily>Segoe UI</df:DefaultFontFamily>
   <AutoRefresh>0</AutoRefresh>
   <DataSources>
-    <DataSource Name="DataSource1">
-      <DataSourceReference>ShareDataSource</DataSourceReference>
+    <DataSource Name="PasReportDataSource">
+      <DataSourceReference>PasReportDataSource</DataSourceReference>
       <rd:SecurityType>DataBase</rd:SecurityType>
       <rd:DataSourceID>8aacd4d9-e770-47f1-b665-ff23f3c19289</rd:DataSourceID>
     </DataSource>
@@ -12,7 +12,7 @@
   <DataSets>
     <DataSet Name="DataSet1">
       <Query>
-        <DataSourceName>DataSource1</DataSourceName>
+        <DataSourceName>PasReportDataSource</DataSourceName>
         <QueryParameters>
           <QueryParameter Name="@Customername">
             <Value>=Parameters!Customername.Value</Value>
@@ -119,10 +119,10 @@
     </DataSet>
     <DataSet Name="CO">
       <Query>
-        <DataSourceName>DataSource1</DataSourceName>
+        <DataSourceName>PasReportDataSource</DataSourceName>
         <QueryParameters>
           <QueryParameter Name="@mastercompanyid">
-            <Value>7</Value>
+            <Value>=Parameters!mastercompanyid.Value</Value>
           </QueryParameter>
         </QueryParameters>
         <CommandType>StoredProcedure</CommandType>
@@ -141,7 +141,7 @@
     </DataSet>
     <DataSet Name="BU">
       <Query>
-        <DataSourceName>DataSource1</DataSourceName>
+        <DataSourceName>PasReportDataSource</DataSourceName>
         <QueryParameters>
           <QueryParameter Name="@Level1">
             <Value>=Parameters!Level1.Value</Value>
@@ -166,7 +166,7 @@
     </DataSet>
     <DataSet Name="Div">
       <Query>
-        <DataSourceName>DataSource1</DataSourceName>
+        <DataSourceName>PasReportDataSource</DataSourceName>
         <QueryParameters>
           <QueryParameter Name="@Level2">
             <Value>=Parameters!Level2.Value</Value>
@@ -191,7 +191,7 @@
     </DataSet>
     <DataSet Name="Dept">
       <Query>
-        <DataSourceName>DataSource1</DataSourceName>
+        <DataSourceName>PasReportDataSource</DataSourceName>
         <QueryParameters>
           <QueryParameter Name="@Level3">
             <Value>=Parameters!Level3.Value</Value>
@@ -216,9 +216,9 @@
     </DataSet>
     <DataSet Name="CompanyName">
       <Query>
-        <DataSourceName>DataSource1</DataSourceName>
+        <DataSourceName>PasReportDataSource</DataSourceName>
         <CommandText>select Mastercompanyid, companyname
- from dbo.Mastercompany WHERE (MasterCompanyId = 7)</CommandText>
+ from dbo.Mastercompany WHERE (MasterCompanyId = 1)</CommandText>
       </Query>
       <Fields>
         <Field Name="Mastercompanyid">
@@ -233,7 +233,13 @@
     </DataSet>
     <DataSet Name="DataSet2">
       <Query>
-        <DataSourceName>DataSource1</DataSourceName>
+        <DataSourceName>PasReportDataSource</DataSourceName>
+        <QueryParameters>
+          <QueryParameter Name="@mastercompanyid">
+            <Value>=Parameters!mastercompanyid.Value</Value>
+            <rd:UserDefined>true</rd:UserDefined>
+          </QueryParameter>
+        </QueryParameters>
         <CommandText>select distinct CASE  WHEN SO.statusid=1  then 'open'
        WHEN  SO.StatusId=2 then 'closed'
 		 WHEN SO.StatusId=3 then 'sent'
@@ -243,8 +249,7 @@
 		  WHEN SO.StatusId=7 then 'PartiallyApproved'
 		 WHEN SO.StatusId=8 then 'Pending' 
 		  WHEN SO.StatusId=9 then 'Rejected' END
-from salesorder SO WHERE (SO.MasterCompanyId = 7)
-</CommandText>
+from salesorder SO WHERE (SO.MasterCompanyId = @mastercompanyid)</CommandText>
       </Query>
       <Fields>
         <Field Name="ID">
@@ -1776,14 +1781,23 @@ from salesorder SO WHERE (SO.MasterCompanyId = 7)
       <DataType>DateTime</DataType>
       <Prompt>From SO Open Date</Prompt>
     </ReportParameter>
-    <ReportParameter Name="Todate">
-      <DataType>DateTime</DataType>
+    <ReportParameter Name="mastercompanyid">
+      <DataType>String</DataType>
       <DefaultValue>
-        <Values>
-          <Value>=Today</Value>
-        </Values>
+        <DataSetReference>
+          <DataSetName>CompanyName</DataSetName>
+          <ValueField>Mastercompanyid</ValueField>
+        </DataSetReference>
       </DefaultValue>
-      <Prompt>To SO Open Date</Prompt>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>Company Name</Prompt>
+      <ValidValues>
+        <DataSetReference>
+          <DataSetName>CompanyName</DataSetName>
+          <ValueField>Mastercompanyid</ValueField>
+          <LabelField>companyname</LabelField>
+        </DataSetReference>
+      </ValidValues>
     </ReportParameter>
     <ReportParameter Name="Level1">
       <DataType>String</DataType>
@@ -1804,28 +1818,19 @@ from salesorder SO WHERE (SO.MasterCompanyId = 7)
       </ValidValues>
       <MultiValue>true</MultiValue>
     </ReportParameter>
+    <ReportParameter Name="Todate">
+      <DataType>DateTime</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>=Today</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>To SO Open Date</Prompt>
+    </ReportParameter>
     <ReportParameter Name="Customername">
       <DataType>String</DataType>
       <AllowBlank>true</AllowBlank>
       <Prompt>Customer(Optional)</Prompt>
-    </ReportParameter>
-    <ReportParameter Name="mastercompanyid">
-      <DataType>String</DataType>
-      <DefaultValue>
-        <DataSetReference>
-          <DataSetName>CompanyName</DataSetName>
-          <ValueField>Mastercompanyid</ValueField>
-        </DataSetReference>
-      </DefaultValue>
-      <AllowBlank>true</AllowBlank>
-      <Prompt>Company Name</Prompt>
-      <ValidValues>
-        <DataSetReference>
-          <DataSetName>CompanyName</DataSetName>
-          <ValueField>Mastercompanyid</ValueField>
-          <LabelField>companyname</LabelField>
-        </DataSetReference>
-      </ValidValues>
     </ReportParameter>
     <ReportParameter Name="Level2">
       <DataType>String</DataType>
@@ -1896,19 +1901,19 @@ from salesorder SO WHERE (SO.MasterCompanyId = 7)
           <ParameterName>Fromdate</ParameterName>
         </CellDefinition>
         <CellDefinition>
-          <ColumnIndex>1</ColumnIndex>
-          <RowIndex>0</RowIndex>
+          <ColumnIndex>0</ColumnIndex>
+          <RowIndex>1</RowIndex>
           <ParameterName>Todate</ParameterName>
         </CellDefinition>
         <CellDefinition>
-          <ColumnIndex>2</ColumnIndex>
+          <ColumnIndex>1</ColumnIndex>
           <RowIndex>0</RowIndex>
-          <ParameterName>Level1</ParameterName>
+          <ParameterName>mastercompanyid</ParameterName>
         </CellDefinition>
         <CellDefinition>
           <ColumnIndex>1</ColumnIndex>
           <RowIndex>1</RowIndex>
-          <ParameterName>mastercompanyid</ParameterName>
+          <ParameterName>Customername</ParameterName>
         </CellDefinition>
         <CellDefinition>
           <ColumnIndex>2</ColumnIndex>
@@ -1926,9 +1931,9 @@ from salesorder SO WHERE (SO.MasterCompanyId = 7)
           <ParameterName>Level4</ParameterName>
         </CellDefinition>
         <CellDefinition>
-          <ColumnIndex>0</ColumnIndex>
-          <RowIndex>1</RowIndex>
-          <ParameterName>Customername</ParameterName>
+          <ColumnIndex>2</ColumnIndex>
+          <RowIndex>0</RowIndex>
+          <ParameterName>Level1</ParameterName>
         </CellDefinition>
       </CellDefinitions>
     </GridLayoutDefinition>

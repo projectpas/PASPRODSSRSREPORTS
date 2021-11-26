@@ -3,8 +3,8 @@
   <df:DefaultFontFamily>Segoe UI</df:DefaultFontFamily>
   <AutoRefresh>0</AutoRefresh>
   <DataSources>
-    <DataSource Name="DataSource1">
-      <DataSourceReference>ShareDataSource</DataSourceReference>
+    <DataSource Name="PasReportDataSource">
+      <DataSourceReference>PasReportDataSource</DataSourceReference>
       <rd:SecurityType>DataBase</rd:SecurityType>
       <rd:DataSourceID>8ea9fd6b-91b4-4da8-9908-5cefa45845df</rd:DataSourceID>
     </DataSource>
@@ -12,7 +12,7 @@
   <DataSets>
     <DataSet Name="DataSet1">
       <Query>
-        <DataSourceName>DataSource1</DataSourceName>
+        <DataSourceName>PasReportDataSource</DataSourceName>
         <QueryParameters>
           <QueryParameter Name="@level1">
             <Value>=Parameters!level1.Value</Value>
@@ -40,6 +40,10 @@
           </QueryParameter>
           <QueryParameter Name="@ToDate">
             <Value>=Parameters!ToDate.Value</Value>
+          </QueryParameter>
+          <QueryParameter Name="@mastercompanyid">
+            <Value>=Parameters!mastercompanyid.Value</Value>
+            <rd:UserDefined>true</rd:UserDefined>
           </QueryParameter>
         </QueryParameters>
         <CommandText>select distinct  
@@ -97,7 +101,7 @@ AND level2.code in (@level2) and
  (('Select  All' IN (@firstname)) OR   (E1.firstname IN (@firstname)) )  and ((' Select  All' IN (@firstname)) OR   (E2.firstname IN (@firstname))  ) and 
  ((' ' IN (@name)) OR   (customer.name IN (@name)) ) and
  ((' Select  All' IN (@partnumber)) OR   (IM.partnumber IN (@partnumber)) )
-and RCW.receiveddate between (@FromDate) and (@ToDate)  AND (RCW.MasterCompanyId = 4)</CommandText>
+and RCW.receiveddate between (@FromDate) and (@ToDate)  AND (RCW.MasterCompanyId = @mastercompanyid)</CommandText>
         <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
       </Query>
       <Fields>
@@ -189,10 +193,10 @@ and RCW.receiveddate between (@FromDate) and (@ToDate)  AND (RCW.MasterCompanyId
     </DataSet>
     <DataSet Name="CO">
       <Query>
-        <DataSourceName>DataSource1</DataSourceName>
+        <DataSourceName>PasReportDataSource</DataSourceName>
         <QueryParameters>
           <QueryParameter Name="@mastercompanyid">
-            <Value>7</Value>
+            <Value>=Parameters!mastercompanyid.Value</Value>
           </QueryParameter>
         </QueryParameters>
         <CommandType>StoredProcedure</CommandType>
@@ -211,13 +215,13 @@ and RCW.receiveddate between (@FromDate) and (@ToDate)  AND (RCW.MasterCompanyId
     </DataSet>
     <DataSet Name="BU">
       <Query>
-        <DataSourceName>DataSource1</DataSourceName>
+        <DataSourceName>PasReportDataSource</DataSourceName>
         <QueryParameters>
           <QueryParameter Name="@Level1">
             <Value>=Parameters!level1.Value</Value>
           </QueryParameter>
           <QueryParameter Name="@mastercompanyid">
-            <Value>7</Value>
+            <Value>=Parameters!mastercompanyid.Value</Value>
           </QueryParameter>
         </QueryParameters>
         <CommandType>StoredProcedure</CommandType>
@@ -236,13 +240,13 @@ and RCW.receiveddate between (@FromDate) and (@ToDate)  AND (RCW.MasterCompanyId
     </DataSet>
     <DataSet Name="DIV">
       <Query>
-        <DataSourceName>DataSource1</DataSourceName>
+        <DataSourceName>PasReportDataSource</DataSourceName>
         <QueryParameters>
           <QueryParameter Name="@Level2">
             <Value>=Parameters!level2.Value</Value>
           </QueryParameter>
           <QueryParameter Name="@mastercompanyid">
-            <Value>7</Value>
+            <Value>=Parameters!mastercompanyid.Value</Value>
           </QueryParameter>
         </QueryParameters>
         <CommandType>StoredProcedure</CommandType>
@@ -261,13 +265,13 @@ and RCW.receiveddate between (@FromDate) and (@ToDate)  AND (RCW.MasterCompanyId
     </DataSet>
     <DataSet Name="DEPT">
       <Query>
-        <DataSourceName>DataSource1</DataSourceName>
+        <DataSourceName>PasReportDataSource</DataSourceName>
         <QueryParameters>
           <QueryParameter Name="@Level3">
             <Value>=Parameters!level3.Value</Value>
           </QueryParameter>
           <QueryParameter Name="@mastercompanyid">
-            <Value>7</Value>
+            <Value>=Parameters!mastercompanyid.Value</Value>
           </QueryParameter>
         </QueryParameters>
         <CommandType>StoredProcedure</CommandType>
@@ -286,9 +290,15 @@ and RCW.receiveddate between (@FromDate) and (@ToDate)  AND (RCW.MasterCompanyId
     </DataSet>
     <DataSet Name="Salesperson">
       <Query>
-        <DataSourceName>DataSource1</DataSourceName>
+        <DataSourceName>PasReportDataSource</DataSourceName>
+        <QueryParameters>
+          <QueryParameter Name="@mastercompanyid">
+            <Value>=Parameters!mastercompanyid.Value</Value>
+            <rd:UserDefined>true</rd:UserDefined>
+          </QueryParameter>
+        </QueryParameters>
         <CommandText>SELECT   FirstName from Employee
-LEFT JOIN workorder WO ON  Employee.EmployeeId=WO.SalesPersonId WHERE (Employee.MasterCompanyId = 7)</CommandText>
+LEFT JOIN workorder WO ON  Employee.EmployeeId=WO.SalesPersonId WHERE (Employee.MasterCompanyId = @mastercompanyid)</CommandText>
       </Query>
       <Fields>
         <Field Name="FirstName">
@@ -299,9 +309,15 @@ LEFT JOIN workorder WO ON  Employee.EmployeeId=WO.SalesPersonId WHERE (Employee.
     </DataSet>
     <DataSet Name="CSR">
       <Query>
-        <DataSourceName>DataSource1</DataSourceName>
+        <DataSourceName>PasReportDataSource</DataSourceName>
+        <QueryParameters>
+          <QueryParameter Name="@mastercompanyid">
+            <Value>=Parameters!mastercompanyid.Value</Value>
+            <rd:UserDefined>true</rd:UserDefined>
+          </QueryParameter>
+        </QueryParameters>
         <CommandText>SELECT   FirstName from Employee
-LEFT JOIN workorder WO ON  Employee.EmployeeId=WO.csrid   where (Employee.MasterCompanyId = 7)</CommandText>
+LEFT JOIN workorder WO ON  Employee.EmployeeId=WO.csrid   where (Employee.MasterCompanyId = @mastercompanyid)</CommandText>
       </Query>
       <Fields>
         <Field Name="FirstName">
@@ -312,8 +328,14 @@ LEFT JOIN workorder WO ON  Employee.EmployeeId=WO.csrid   where (Employee.Master
     </DataSet>
     <DataSet Name="C_Name">
       <Query>
-        <DataSourceName>DataSource1</DataSourceName>
-        <CommandText>SELECT   name from customer  where (MasterCompanyId = 7)</CommandText>
+        <DataSourceName>PasReportDataSource</DataSourceName>
+        <QueryParameters>
+          <QueryParameter Name="@mastercompanyid">
+            <Value>=Parameters!mastercompanyid.Value</Value>
+            <rd:UserDefined>true</rd:UserDefined>
+          </QueryParameter>
+        </QueryParameters>
+        <CommandText>SELECT   name from customer  where (MasterCompanyId = @mastercompanyid)</CommandText>
       </Query>
       <Fields>
         <Field Name="name">
@@ -324,8 +346,14 @@ LEFT JOIN workorder WO ON  Employee.EmployeeId=WO.csrid   where (Employee.Master
     </DataSet>
     <DataSet Name="PN">
       <Query>
-        <DataSourceName>DataSource1</DataSourceName>
-        <CommandText>select partnumber from itemmaster  where (MasterCompanyId = 7)
+        <DataSourceName>PasReportDataSource</DataSourceName>
+        <QueryParameters>
+          <QueryParameter Name="@mastercompanyid">
+            <Value>=Parameters!mastercompanyid.Value</Value>
+            <rd:UserDefined>true</rd:UserDefined>
+          </QueryParameter>
+        </QueryParameters>
+        <CommandText>select partnumber from itemmaster  where (MasterCompanyId = @mastercompanyid)
 ORDER BY partnumber</CommandText>
       </Query>
       <Fields>
@@ -337,10 +365,10 @@ ORDER BY partnumber</CommandText>
     </DataSet>
     <DataSet Name="MSDS">
       <Query>
-        <DataSourceName>DataSource1</DataSourceName>
+        <DataSourceName>PasReportDataSource</DataSourceName>
         <CommandText>SELECT        MasterCompanyId, CompanyName
 FROM           MasterCompany
-WHERE (MasterCompanyId = 7)</CommandText>
+WHERE (MasterCompanyId = 1)</CommandText>
       </Query>
       <Fields>
         <Field Name="MasterCompanyId">
@@ -2220,9 +2248,22 @@ WHERE (MasterCompanyId = 7)</CommandText>
       <DataType>DateTime</DataType>
       <Prompt>From Date *</Prompt>
     </ReportParameter>
-    <ReportParameter Name="ToDate">
-      <DataType>DateTime</DataType>
-      <Prompt>To Date *</Prompt>
+    <ReportParameter Name="mastercompanyid">
+      <DataType>Integer</DataType>
+      <DefaultValue>
+        <DataSetReference>
+          <DataSetName>MSDS</DataSetName>
+          <ValueField>MasterCompanyId</ValueField>
+        </DataSetReference>
+      </DefaultValue>
+      <Prompt>Company Name</Prompt>
+      <ValidValues>
+        <DataSetReference>
+          <DataSetName>MSDS</DataSetName>
+          <ValueField>MasterCompanyId</ValueField>
+          <LabelField>CompanyName</LabelField>
+        </DataSetReference>
+      </ValidValues>
     </ReportParameter>
     <ReportParameter Name="level1">
       <DataType>String</DataType>
@@ -2242,22 +2283,9 @@ WHERE (MasterCompanyId = 7)</CommandText>
       </ValidValues>
       <MultiValue>true</MultiValue>
     </ReportParameter>
-    <ReportParameter Name="partnumber">
-      <DataType>String</DataType>
-      <DefaultValue>
-        <Values>
-          <Value xml:space="preserve"> </Value>
-        </Values>
-      </DefaultValue>
-      <Prompt>PN</Prompt>
-      <ValidValues>
-        <DataSetReference>
-          <DataSetName>PN</DataSetName>
-          <ValueField>partnumber</ValueField>
-          <LabelField>partnumber</LabelField>
-        </DataSetReference>
-      </ValidValues>
-      <MultiValue>true</MultiValue>
+    <ReportParameter Name="ToDate">
+      <DataType>DateTime</DataType>
+      <Prompt>To Date *</Prompt>
     </ReportParameter>
     <ReportParameter Name="name">
       <DataType>String</DataType>
@@ -2290,6 +2318,23 @@ WHERE (MasterCompanyId = 7)</CommandText>
       </ValidValues>
       <MultiValue>true</MultiValue>
     </ReportParameter>
+    <ReportParameter Name="partnumber">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value xml:space="preserve"> </Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>PN</Prompt>
+      <ValidValues>
+        <DataSetReference>
+          <DataSetName>PN</DataSetName>
+          <ValueField>partnumber</ValueField>
+          <LabelField>partnumber</LabelField>
+        </DataSetReference>
+      </ValidValues>
+      <MultiValue>true</MultiValue>
+    </ReportParameter>
     <ReportParameter Name="firstname">
       <DataType>String</DataType>
       <DefaultValue>
@@ -2301,23 +2346,6 @@ WHERE (MasterCompanyId = 7)</CommandText>
       <ValidValues>
         <DataSetReference>
           <DataSetName>Salesperson</DataSetName>
-          <ValueField>FirstName</ValueField>
-          <LabelField>FirstName</LabelField>
-        </DataSetReference>
-      </ValidValues>
-      <MultiValue>true</MultiValue>
-    </ReportParameter>
-    <ReportParameter Name="firstname1">
-      <DataType>String</DataType>
-      <DefaultValue>
-        <Values>
-          <Value> SELECT ALL</Value>
-        </Values>
-      </DefaultValue>
-      <Prompt>CSR</Prompt>
-      <ValidValues>
-        <DataSetReference>
-          <DataSetName>CSR</DataSetName>
           <ValueField>FirstName</ValueField>
           <LabelField>FirstName</LabelField>
         </DataSetReference>
@@ -2343,22 +2371,22 @@ WHERE (MasterCompanyId = 7)</CommandText>
       </ValidValues>
       <MultiValue>true</MultiValue>
     </ReportParameter>
-    <ReportParameter Name="mastercompanyid">
-      <DataType>Integer</DataType>
+    <ReportParameter Name="firstname1">
+      <DataType>String</DataType>
       <DefaultValue>
-        <DataSetReference>
-          <DataSetName>MSDS</DataSetName>
-          <ValueField>MasterCompanyId</ValueField>
-        </DataSetReference>
+        <Values>
+          <Value> SELECT ALL</Value>
+        </Values>
       </DefaultValue>
-      <Prompt>Company Name</Prompt>
+      <Prompt>CSR</Prompt>
       <ValidValues>
         <DataSetReference>
-          <DataSetName>MSDS</DataSetName>
-          <ValueField>MasterCompanyId</ValueField>
-          <LabelField>CompanyName</LabelField>
+          <DataSetName>CSR</DataSetName>
+          <ValueField>FirstName</ValueField>
+          <LabelField>FirstName</LabelField>
         </DataSetReference>
       </ValidValues>
+      <MultiValue>true</MultiValue>
     </ReportParameter>
     <ReportParameter Name="level4">
       <DataType>String</DataType>
@@ -2391,8 +2419,8 @@ WHERE (MasterCompanyId = 7)</CommandText>
           <ParameterName>FromDate</ParameterName>
         </CellDefinition>
         <CellDefinition>
-          <ColumnIndex>1</ColumnIndex>
-          <RowIndex>0</RowIndex>
+          <ColumnIndex>0</ColumnIndex>
+          <RowIndex>1</RowIndex>
           <ParameterName>ToDate</ParameterName>
         </CellDefinition>
         <CellDefinition>
@@ -2411,13 +2439,13 @@ WHERE (MasterCompanyId = 7)</CommandText>
           <ParameterName>level2</ParameterName>
         </CellDefinition>
         <CellDefinition>
-          <ColumnIndex>0</ColumnIndex>
+          <ColumnIndex>1</ColumnIndex>
           <RowIndex>2</RowIndex>
           <ParameterName>firstname</ParameterName>
         </CellDefinition>
         <CellDefinition>
-          <ColumnIndex>1</ColumnIndex>
-          <RowIndex>2</RowIndex>
+          <ColumnIndex>0</ColumnIndex>
+          <RowIndex>3</RowIndex>
           <ParameterName>firstname1</ParameterName>
         </CellDefinition>
         <CellDefinition>
@@ -2432,12 +2460,12 @@ WHERE (MasterCompanyId = 7)</CommandText>
         </CellDefinition>
         <CellDefinition>
           <ColumnIndex>0</ColumnIndex>
-          <RowIndex>1</RowIndex>
+          <RowIndex>2</RowIndex>
           <ParameterName>partnumber</ParameterName>
         </CellDefinition>
         <CellDefinition>
           <ColumnIndex>1</ColumnIndex>
-          <RowIndex>3</RowIndex>
+          <RowIndex>0</RowIndex>
           <ParameterName>mastercompanyid</ParameterName>
         </CellDefinition>
       </CellDefinitions>

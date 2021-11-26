@@ -3,8 +3,8 @@
   <df:DefaultFontFamily>Segoe UI</df:DefaultFontFamily>
   <AutoRefresh>0</AutoRefresh>
   <DataSources>
-    <DataSource Name="DataSource1">
-      <DataSourceReference>ShareDataSource</DataSourceReference>
+    <DataSource Name="PasReportDataSource">
+      <DataSourceReference>PasReportDataSource</DataSourceReference>
       <rd:SecurityType>DataBase</rd:SecurityType>
       <rd:DataSourceID>0ba72e8e-b9b9-40b2-9c36-4c10f843c813</rd:DataSourceID>
     </DataSource>
@@ -12,7 +12,7 @@
   <DataSets>
     <DataSet Name="DataSet1">
       <Query>
-        <DataSourceName>DataSource1</DataSourceName>
+        <DataSourceName>PasReportDataSource</DataSourceName>
         <QueryParameters>
           <QueryParameter Name="@partnumber">
             <Value>=Parameters!partnumber.Value</Value>
@@ -180,10 +180,10 @@
     </DataSet>
     <DataSet Name="CO">
       <Query>
-        <DataSourceName>DataSource1</DataSourceName>
+        <DataSourceName>PasReportDataSource</DataSourceName>
         <QueryParameters>
           <QueryParameter Name="@mastercompanyid">
-            <Value>7</Value>
+            <Value>=Parameters!mastercomanyid.Value</Value>
           </QueryParameter>
         </QueryParameters>
         <CommandType>StoredProcedure</CommandType>
@@ -202,11 +202,17 @@
     </DataSet>
     <DataSet Name="PN">
       <Query>
-        <DataSourceName>DataSource1</DataSourceName>
+        <DataSourceName>PasReportDataSource</DataSourceName>
+        <QueryParameters>
+          <QueryParameter Name="@mastercomanyid">
+            <Value>=Parameters!mastercomanyid.Value</Value>
+            <rd:UserDefined>true</rd:UserDefined>
+          </QueryParameter>
+        </QueryParameters>
         <CommandText>select distinct ISNULL(im.partnumber ,'NULL')
 from stockline STL
 LEFT JOIN PurchaseOrder  PO ON STL.PurchaseOrderId=PO.PurchaseOrderId
-LEFT join ItemMaster im on stl.ItemMasterId = im.ItemMasterId where (STL.MasterCompanyId = 7)</CommandText>
+LEFT join ItemMaster im on stl.ItemMasterId = im.ItemMasterId where (STL.MasterCompanyId = @mastercomanyid)</CommandText>
       </Query>
       <Fields>
         <Field Name="ID">
@@ -217,13 +223,13 @@ LEFT join ItemMaster im on stl.ItemMasterId = im.ItemMasterId where (STL.MasterC
     </DataSet>
     <DataSet Name="BU">
       <Query>
-        <DataSourceName>DataSource1</DataSourceName>
+        <DataSourceName>PasReportDataSource</DataSourceName>
         <QueryParameters>
           <QueryParameter Name="@Level1">
             <Value>=Parameters!level1.Value</Value>
           </QueryParameter>
           <QueryParameter Name="@mastercompanyid">
-            <Value>7</Value>
+            <Value>=Parameters!mastercomanyid.Value</Value>
           </QueryParameter>
         </QueryParameters>
         <CommandType>StoredProcedure</CommandType>
@@ -242,13 +248,13 @@ LEFT join ItemMaster im on stl.ItemMasterId = im.ItemMasterId where (STL.MasterC
     </DataSet>
     <DataSet Name="DIV">
       <Query>
-        <DataSourceName>DataSource1</DataSourceName>
+        <DataSourceName>PasReportDataSource</DataSourceName>
         <QueryParameters>
           <QueryParameter Name="@Level2">
             <Value>=Parameters!level2.Value</Value>
           </QueryParameter>
           <QueryParameter Name="@mastercompanyid">
-            <Value>7</Value>
+            <Value>=Parameters!mastercomanyid.Value</Value>
           </QueryParameter>
         </QueryParameters>
         <CommandType>StoredProcedure</CommandType>
@@ -267,13 +273,13 @@ LEFT join ItemMaster im on stl.ItemMasterId = im.ItemMasterId where (STL.MasterC
     </DataSet>
     <DataSet Name="DEPT">
       <Query>
-        <DataSourceName>DataSource1</DataSourceName>
+        <DataSourceName>PasReportDataSource</DataSourceName>
         <QueryParameters>
           <QueryParameter Name="@Level3">
             <Value>=Parameters!level3.Value</Value>
           </QueryParameter>
           <QueryParameter Name="@mastercompanyid">
-            <Value>7</Value>
+            <Value>=Parameters!mastercomanyid.Value</Value>
           </QueryParameter>
         </QueryParameters>
         <CommandType>StoredProcedure</CommandType>
@@ -292,13 +298,19 @@ LEFT join ItemMaster im on stl.ItemMasterId = im.ItemMasterId where (STL.MasterC
     </DataSet>
     <DataSet Name="C_Name">
       <Query>
-        <DataSourceName>DataSource1</DataSourceName>
+        <DataSourceName>PasReportDataSource</DataSourceName>
+        <QueryParameters>
+          <QueryParameter Name="@mastercomanyid">
+            <Value>=Parameters!mastercomanyid.Value</Value>
+            <rd:UserDefined>true</rd:UserDefined>
+          </QueryParameter>
+        </QueryParameters>
         <CommandText>select distinct ISNULL(C.name ,'NULL')
 from stockline STL
 INNER JOIN PurchaseOrder  PO ON STL.PurchaseOrderId=PO.PurchaseOrderId
 INNER JOIN PurchaseOrderPart  POP ON PO.PurchaseOrderId=POP.PurchaseOrderId
 LEFT JOIN Workorder WO ON POP.workorderid=WO.workorderid
-LEFT JOIN Customer C ON Wo.WorkOrderId=C.CustomerId  WHERE (STL.MasterCompanyId = 7)</CommandText>
+LEFT JOIN Customer C ON Wo.WorkOrderId=C.CustomerId  WHERE (STL.MasterCompanyId = @mastercomanyid)</CommandText>
       </Query>
       <Fields>
         <Field Name="ID">
@@ -309,9 +321,9 @@ LEFT JOIN Customer C ON Wo.WorkOrderId=C.CustomerId  WHERE (STL.MasterCompanyId 
     </DataSet>
     <DataSet Name="DataSet2">
       <Query>
-        <DataSourceName>DataSource1</DataSourceName>
+        <DataSourceName>PasReportDataSource</DataSourceName>
         <CommandText>select Mastercompanyid, companyname
- from dbo.Mastercompany WHERE (MasterCompanyId = 7)</CommandText>
+ from dbo.Mastercompany WHERE (MasterCompanyId = 1)</CommandText>
       </Query>
       <Fields>
         <Field Name="MasterCompanyId">
@@ -4341,14 +4353,22 @@ LEFT JOIN Customer C ON Wo.WorkOrderId=C.CustomerId  WHERE (STL.MasterCompanyId 
       <DataType>DateTime</DataType>
       <Prompt>From Stock Received Date*</Prompt>
     </ReportParameter>
-    <ReportParameter Name="ToDate">
-      <DataType>DateTime</DataType>
+    <ReportParameter Name="mastercomanyid">
+      <DataType>Integer</DataType>
       <DefaultValue>
-        <Values>
-          <Value>=Today()</Value>
-        </Values>
+        <DataSetReference>
+          <DataSetName>DataSet2</DataSetName>
+          <ValueField>MasterCompanyId</ValueField>
+        </DataSetReference>
       </DefaultValue>
-      <Prompt>To Stock Received Date*</Prompt>
+      <Prompt>Company Name</Prompt>
+      <ValidValues>
+        <DataSetReference>
+          <DataSetName>DataSet2</DataSetName>
+          <ValueField>MasterCompanyId</ValueField>
+          <LabelField>CompanyName</LabelField>
+        </DataSetReference>
+      </ValidValues>
     </ReportParameter>
     <ReportParameter Name="level1">
       <DataType>String</DataType>
@@ -4368,22 +4388,14 @@ LEFT JOIN Customer C ON Wo.WorkOrderId=C.CustomerId  WHERE (STL.MasterCompanyId 
       </ValidValues>
       <MultiValue>true</MultiValue>
     </ReportParameter>
-    <ReportParameter Name="mastercomanyid">
-      <DataType>Integer</DataType>
+    <ReportParameter Name="ToDate">
+      <DataType>DateTime</DataType>
       <DefaultValue>
-        <DataSetReference>
-          <DataSetName>DataSet2</DataSetName>
-          <ValueField>MasterCompanyId</ValueField>
-        </DataSetReference>
+        <Values>
+          <Value>=Today()</Value>
+        </Values>
       </DefaultValue>
-      <Prompt>Company Name</Prompt>
-      <ValidValues>
-        <DataSetReference>
-          <DataSetName>DataSet2</DataSetName>
-          <ValueField>MasterCompanyId</ValueField>
-          <LabelField>CompanyName</LabelField>
-        </DataSetReference>
-      </ValidValues>
+      <Prompt>To Stock Received Date*</Prompt>
     </ReportParameter>
     <ReportParameter Name="partnumber">
       <DataType>String</DataType>
@@ -4459,13 +4471,13 @@ LEFT JOIN Customer C ON Wo.WorkOrderId=C.CustomerId  WHERE (STL.MasterCompanyId 
           <ParameterName>FromDate</ParameterName>
         </CellDefinition>
         <CellDefinition>
-          <ColumnIndex>1</ColumnIndex>
-          <RowIndex>0</RowIndex>
+          <ColumnIndex>0</ColumnIndex>
+          <RowIndex>1</RowIndex>
           <ParameterName>ToDate</ParameterName>
         </CellDefinition>
         <CellDefinition>
-          <ColumnIndex>0</ColumnIndex>
-          <RowIndex>1</RowIndex>
+          <ColumnIndex>1</ColumnIndex>
+          <RowIndex>0</RowIndex>
           <ParameterName>mastercomanyid</ParameterName>
         </CellDefinition>
         <CellDefinition>

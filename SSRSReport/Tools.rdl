@@ -3,8 +3,8 @@
   <df:DefaultFontFamily>Segoe UI</df:DefaultFontFamily>
   <AutoRefresh>0</AutoRefresh>
   <DataSources>
-    <DataSource Name="DataSource1">
-      <DataSourceReference>ShareDataSource</DataSourceReference>
+    <DataSource Name="PasReportDataSource">
+      <DataSourceReference>PasReportDataSource</DataSourceReference>
       <rd:SecurityType>DataBase</rd:SecurityType>
       <rd:DataSourceID>36b460bc-4b40-43f4-a06c-d59714b2f2f4</rd:DataSourceID>
     </DataSource>
@@ -12,13 +12,13 @@
   <DataSets>
     <DataSet Name="DataSet1">
       <Query>
-        <DataSourceName>DataSource1</DataSourceName>
+        <DataSourceName>PasReportDataSource</DataSourceName>
         <QueryParameters>
           <QueryParameter Name="@To">
             <Value>=Parameters!Todate.Value</Value>
           </QueryParameter>
           <QueryParameter Name="@mastercompanyid">
-            <Value>7</Value>
+            <Value>=Parameters!mastercompanyid.Value</Value>
           </QueryParameter>
           <QueryParameter Name="@calibrationrequired">
             <Value>=Parameters!calibrationrequired.Value</Value>
@@ -117,10 +117,10 @@
     </DataSet>
     <DataSet Name="CO">
       <Query>
-        <DataSourceName>DataSource1</DataSourceName>
+        <DataSourceName>PasReportDataSource</DataSourceName>
         <QueryParameters>
           <QueryParameter Name="@mastercompanyid">
-            <Value>7</Value>
+            <Value>=Parameters!mastercompanyid.Value</Value>
           </QueryParameter>
         </QueryParameters>
         <CommandType>StoredProcedure</CommandType>
@@ -139,7 +139,7 @@
     </DataSet>
     <DataSet Name="BU">
       <Query>
-        <DataSourceName>DataSource1</DataSourceName>
+        <DataSourceName>PasReportDataSource</DataSourceName>
         <QueryParameters>
           <QueryParameter Name="@Level1">
             <Value>=Parameters!level1.Value</Value>
@@ -164,7 +164,7 @@
     </DataSet>
     <DataSet Name="Div">
       <Query>
-        <DataSourceName>DataSource1</DataSourceName>
+        <DataSourceName>PasReportDataSource</DataSourceName>
         <QueryParameters>
           <QueryParameter Name="@Level2">
             <Value>=Parameters!level2.Value</Value>
@@ -189,7 +189,7 @@
     </DataSet>
     <DataSet Name="Dept">
       <Query>
-        <DataSourceName>DataSource1</DataSourceName>
+        <DataSourceName>PasReportDataSource</DataSourceName>
         <QueryParameters>
           <QueryParameter Name="@Level3">
             <Value>=Parameters!level3.Value</Value>
@@ -214,9 +214,9 @@
     </DataSet>
     <DataSet Name="DataSet2">
       <Query>
-        <DataSourceName>DataSource1</DataSourceName>
+        <DataSourceName>PasReportDataSource</DataSourceName>
         <CommandText>select Mastercompanyid, companyname
- from dbo.Mastercompany WHERE (MasterCompanyId = 7)</CommandText>
+ from dbo.Mastercompany WHERE (MasterCompanyId = 1)</CommandText>
       </Query>
       <Fields>
         <Field Name="Mastercompanyid">
@@ -231,14 +231,13 @@
     </DataSet>
     <DataSet Name="CalReqd">
       <Query>
-        <DataSourceName>DataSource1</DataSourceName>
+        <DataSourceName>PasReportDataSource</DataSourceName>
         <CommandText>
 SELECT 'All' AS txt, 3 as Val
 union all
 SELECT 'Yes' AS txt, 1 as Val
 union all
-SELECT 'No' AS txt, 2 as Val
-</CommandText>
+SELECT 'No' AS txt, 2 as Val</CommandText>
       </Query>
       <Fields>
         <Field Name="txt">
@@ -253,7 +252,7 @@ SELECT 'No' AS txt, 2 as Val
     </DataSet>
     <DataSet Name="CerReqd">
       <Query>
-        <DataSourceName>DataSource1</DataSourceName>
+        <DataSourceName>PasReportDataSource</DataSourceName>
         <CommandText>SELECT 'Yes' AS txt, 1 as Val
 union all
 SELECT 'No' AS txt, 2 as Val
@@ -273,7 +272,7 @@ SELECT 'All' AS txt, 3 as Val</CommandText>
     </DataSet>
     <DataSet Name="InsReqd">
       <Query>
-        <DataSourceName>DataSource1</DataSourceName>
+        <DataSourceName>PasReportDataSource</DataSourceName>
         <CommandText>SELECT 'Yes' AS txt, 1 as Val
 union all
 SELECT 'No' AS txt, 2 as Val
@@ -293,7 +292,7 @@ SELECT 'All' AS txt, 3 as Val</CommandText>
     </DataSet>
     <DataSet Name="VerReqd">
       <Query>
-        <DataSourceName>DataSource1</DataSourceName>
+        <DataSourceName>PasReportDataSource</DataSourceName>
         <CommandText>SELECT 'Yes' AS txt, 1 as Val
 union all
 SELECT 'No' AS txt, 2 as Val

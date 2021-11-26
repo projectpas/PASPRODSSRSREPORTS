@@ -3,8 +3,8 @@
   <df:DefaultFontFamily>Segoe UI</df:DefaultFontFamily>
   <AutoRefresh>0</AutoRefresh>
   <DataSources>
-    <DataSource Name="DataSource1">
-      <DataSourceReference>ShareDataSource</DataSourceReference>
+    <DataSource Name="PasReportDataSource">
+      <DataSourceReference>PasReportDataSource</DataSourceReference>
       <rd:SecurityType>DataBase</rd:SecurityType>
       <rd:DataSourceID>48b9d268-0fe6-48a8-a688-57f82dd60d6b</rd:DataSourceID>
     </DataSource>
@@ -12,7 +12,7 @@
   <DataSets>
     <DataSet Name="DataSet1">
       <Query>
-        <DataSourceName>DataSource1</DataSourceName>
+        <DataSourceName>PasReportDataSource</DataSourceName>
         <QueryParameters>
           <QueryParameter Name="@name">
             <Value>=Parameters!name.Value</Value>
@@ -140,8 +140,14 @@
     </DataSet>
     <DataSet Name="WONum">
       <Query>
-        <DataSourceName>DataSource1</DataSourceName>
-        <CommandText>SELECT distinct WorkOrderNum  FROM [WorkOrder] WHERE (MasterCompanyId = 7)</CommandText>
+        <DataSourceName>PasReportDataSource</DataSourceName>
+        <QueryParameters>
+          <QueryParameter Name="@mastercompanyid">
+            <Value>=Parameters!mastercompanyid.Value</Value>
+            <rd:UserDefined>true</rd:UserDefined>
+          </QueryParameter>
+        </QueryParameters>
+        <CommandText>SELECT distinct WorkOrderNum  FROM [WorkOrder] WHERE (MasterCompanyId = @mastercompanyid)</CommandText>
       </Query>
       <Fields>
         <Field Name="WorkOrderNum">
@@ -152,10 +158,10 @@
     </DataSet>
     <DataSet Name="CO">
       <Query>
-        <DataSourceName>DataSource1</DataSourceName>
+        <DataSourceName>PasReportDataSource</DataSourceName>
         <QueryParameters>
           <QueryParameter Name="@mastercompanyid">
-            <Value>7</Value>
+            <Value>=Parameters!mastercompanyid.Value</Value>
           </QueryParameter>
         </QueryParameters>
         <CommandType>StoredProcedure</CommandType>
@@ -174,7 +180,7 @@
     </DataSet>
     <DataSet Name="BU">
       <Query>
-        <DataSourceName>DataSource1</DataSourceName>
+        <DataSourceName>PasReportDataSource</DataSourceName>
         <QueryParameters>
           <QueryParameter Name="@Level1">
             <Value>=Parameters!level1.Value</Value>
@@ -199,7 +205,7 @@
     </DataSet>
     <DataSet Name="DIV">
       <Query>
-        <DataSourceName>DataSource1</DataSourceName>
+        <DataSourceName>PasReportDataSource</DataSourceName>
         <QueryParameters>
           <QueryParameter Name="@Level2">
             <Value>=Parameters!level2.Value</Value>
@@ -224,7 +230,7 @@
     </DataSet>
     <DataSet Name="DEPT">
       <Query>
-        <DataSourceName>DataSource1</DataSourceName>
+        <DataSourceName>PasReportDataSource</DataSourceName>
         <QueryParameters>
           <QueryParameter Name="@Level3">
             <Value>=Parameters!level3.Value</Value>
@@ -249,12 +255,18 @@
     </DataSet>
     <DataSet Name="PN">
       <Query>
-        <DataSourceName>DataSource1</DataSourceName>
+        <DataSourceName>PasReportDataSource</DataSourceName>
+        <QueryParameters>
+          <QueryParameter Name="@mastercompanyid">
+            <Value>=Parameters!mastercompanyid.Value</Value>
+            <rd:UserDefined>true</rd:UserDefined>
+          </QueryParameter>
+        </QueryParameters>
         <CommandText>SELECT distinct ISNULL(IM.partnumber, 'NULL' ) as partnumber 
 from WorkOrder WO
 left join WorkOrderPartNumber WOPN on WO.WorkOrderId=WOPN.WorkOrderId
 LEFT JOIN ItemMaster  IM ON WOPN.itemmasterId=IM.itemmasterId
-WHERE (WO.MasterCompanyId = 7)</CommandText>
+WHERE (WO.MasterCompanyId = @mastercompanyid)</CommandText>
       </Query>
       <Fields>
         <Field Name="partnumber">
@@ -265,11 +277,16 @@ WHERE (WO.MasterCompanyId = 7)</CommandText>
     </DataSet>
     <DataSet Name="C_Name">
       <Query>
-        <DataSourceName>DataSource1</DataSourceName>
+        <DataSourceName>PasReportDataSource</DataSourceName>
+        <QueryParameters>
+          <QueryParameter Name="@mastercompanyid">
+            <Value>=Parameters!mastercompanyid.Value</Value>
+          </QueryParameter>
+        </QueryParameters>
         <CommandText>SELECT distinct C.customerid,C.Name
 from WorkOrder WO
 left join Customer  C on WO.CustomerId=C .CustomerId
-WHERE (WO.MasterCompanyId = 7)</CommandText>
+WHERE (WO.MasterCompanyId = @mastercompanyid)</CommandText>
       </Query>
       <Fields>
         <Field Name="customerid">
@@ -284,9 +301,9 @@ WHERE (WO.MasterCompanyId = 7)</CommandText>
     </DataSet>
     <DataSet Name="DataSet2">
       <Query>
-        <DataSourceName>DataSource1</DataSourceName>
+        <DataSourceName>PasReportDataSource</DataSourceName>
         <CommandText>select Mastercompanyid, companyname
- from dbo.Mastercompany WHERE (MasterCompanyId = 7)</CommandText>
+ from dbo.Mastercompany WHERE (MasterCompanyId = 1)</CommandText>
       </Query>
       <Fields>
         <Field Name="Mastercompanyid">
@@ -2308,14 +2325,22 @@ WHERE (WO.MasterCompanyId = 7)</CommandText>
       <DataType>DateTime</DataType>
       <Prompt>WO Start Ship Date*</Prompt>
     </ReportParameter>
-    <ReportParameter Name="ToDate">
-      <DataType>DateTime</DataType>
+    <ReportParameter Name="mastercompanyid">
+      <DataType>Integer</DataType>
       <DefaultValue>
-        <Values>
-          <Value>=Today()</Value>
-        </Values>
+        <DataSetReference>
+          <DataSetName>DataSet2</DataSetName>
+          <ValueField>Mastercompanyid</ValueField>
+        </DataSetReference>
       </DefaultValue>
-      <Prompt>WO End Ship Date*</Prompt>
+      <Prompt>Company Name</Prompt>
+      <ValidValues>
+        <DataSetReference>
+          <DataSetName>DataSet2</DataSetName>
+          <ValueField>Mastercompanyid</ValueField>
+          <LabelField>companyname</LabelField>
+        </DataSetReference>
+      </ValidValues>
     </ReportParameter>
     <ReportParameter Name="level1">
       <DataType>String</DataType>
@@ -2336,27 +2361,19 @@ WHERE (WO.MasterCompanyId = 7)</CommandText>
       </ValidValues>
       <MultiValue>true</MultiValue>
     </ReportParameter>
+    <ReportParameter Name="ToDate">
+      <DataType>DateTime</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>=Today()</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>WO End Ship Date*</Prompt>
+    </ReportParameter>
     <ReportParameter Name="name">
       <DataType>String</DataType>
       <AllowBlank>true</AllowBlank>
       <Prompt>Customer(Optional)</Prompt>
-    </ReportParameter>
-    <ReportParameter Name="mastercompanyid">
-      <DataType>Integer</DataType>
-      <DefaultValue>
-        <DataSetReference>
-          <DataSetName>DataSet2</DataSetName>
-          <ValueField>Mastercompanyid</ValueField>
-        </DataSetReference>
-      </DefaultValue>
-      <Prompt>Company Name</Prompt>
-      <ValidValues>
-        <DataSetReference>
-          <DataSetName>DataSet2</DataSetName>
-          <ValueField>Mastercompanyid</ValueField>
-          <LabelField>companyname</LabelField>
-        </DataSetReference>
-      </ValidValues>
     </ReportParameter>
     <ReportParameter Name="level2">
       <DataType>String</DataType>
@@ -2426,8 +2443,8 @@ WHERE (WO.MasterCompanyId = 7)</CommandText>
           <ParameterName>FromDate</ParameterName>
         </CellDefinition>
         <CellDefinition>
-          <ColumnIndex>1</ColumnIndex>
-          <RowIndex>0</RowIndex>
+          <ColumnIndex>0</ColumnIndex>
+          <RowIndex>1</RowIndex>
           <ParameterName>ToDate</ParameterName>
         </CellDefinition>
         <CellDefinition>
@@ -2437,7 +2454,7 @@ WHERE (WO.MasterCompanyId = 7)</CommandText>
         </CellDefinition>
         <CellDefinition>
           <ColumnIndex>1</ColumnIndex>
-          <RowIndex>1</RowIndex>
+          <RowIndex>0</RowIndex>
           <ParameterName>mastercompanyid</ParameterName>
         </CellDefinition>
         <CellDefinition>
@@ -2456,7 +2473,7 @@ WHERE (WO.MasterCompanyId = 7)</CommandText>
           <ParameterName>level4</ParameterName>
         </CellDefinition>
         <CellDefinition>
-          <ColumnIndex>0</ColumnIndex>
+          <ColumnIndex>1</ColumnIndex>
           <RowIndex>1</RowIndex>
           <ParameterName>name</ParameterName>
         </CellDefinition>
