@@ -3,8 +3,8 @@
   <df:DefaultFontFamily>Segoe UI</df:DefaultFontFamily>
   <AutoRefresh>0</AutoRefresh>
   <DataSources>
-    <DataSource Name="DataSource1">
-      <DataSourceReference>ShareDataSource</DataSourceReference>
+    <DataSource Name="PasReportDataSource">
+      <DataSourceReference>PasReportDataSource</DataSourceReference>
       <rd:SecurityType>DataBase</rd:SecurityType>
       <rd:DataSourceID>a82b2e33-87a5-4270-80d2-3cdc146f5d70</rd:DataSourceID>
     </DataSource>
@@ -12,7 +12,7 @@
   <DataSets>
     <DataSet Name="DataSet1">
       <Query>
-        <DataSourceName>DataSource1</DataSourceName>
+        <DataSourceName>PasReportDataSource</DataSourceName>
         <QueryParameters>
           <QueryParameter Name="@customername">
             <Value>=Parameters!customername.Value</Value>
@@ -140,10 +140,10 @@
     </DataSet>
     <DataSet Name="CO">
       <Query>
-        <DataSourceName>DataSource1</DataSourceName>
+        <DataSourceName>PasReportDataSource</DataSourceName>
         <QueryParameters>
           <QueryParameter Name="@mastercompanyid">
-            <Value>7</Value>
+            <Value>=Parameters!mastercompanyid.Value</Value>
           </QueryParameter>
         </QueryParameters>
         <CommandType>StoredProcedure</CommandType>
@@ -162,8 +162,14 @@
     </DataSet>
     <DataSet Name="CustomerName">
       <Query>
-        <DataSourceName>DataSource1</DataSourceName>
-        <CommandText>select distinct customername from Salesorderquote SOQ where (SOQ.MasterCompanyId = 7)</CommandText>
+        <DataSourceName>PasReportDataSource</DataSourceName>
+        <QueryParameters>
+          <QueryParameter Name="@mastercompanyid">
+            <Value>=Parameters!mastercompanyid.Value</Value>
+            <rd:UserDefined>true</rd:UserDefined>
+          </QueryParameter>
+        </QueryParameters>
+        <CommandText>select distinct customername from Salesorderquote SOQ where (SOQ.MasterCompanyId = @mastercompanyid)</CommandText>
       </Query>
       <Fields>
         <Field Name="customername">
@@ -174,10 +180,16 @@
     </DataSet>
     <DataSet Name="PN">
       <Query>
-        <DataSourceName>DataSource1</DataSourceName>
+        <DataSourceName>PasReportDataSource</DataSourceName>
+        <QueryParameters>
+          <QueryParameter Name="@mastercompanyid">
+            <Value>=Parameters!mastercompanyid.Value</Value>
+          </QueryParameter>
+        </QueryParameters>
         <CommandText>SELECT distinct ISNULL(SOQP.partnumber,'NULL') as partnumber
 from SalesOrderQuote SOQ
-LEFT JOIN SalesOrderQuotePart SOQP ON SOQ.SalesOrderQuoteId=SOQP.SalesOrderQuoteId</CommandText>
+LEFT JOIN SalesOrderQuotePart SOQP ON SOQ.SalesOrderQuoteId=SOQP.SalesOrderQuoteId
+where (SOQ.MasterCompanyId = @mastercompanyid)</CommandText>
       </Query>
       <Fields>
         <Field Name="partnumber">
@@ -188,8 +200,13 @@ LEFT JOIN SalesOrderQuotePart SOQP ON SOQ.SalesOrderQuoteId=SOQP.SalesOrderQuote
     </DataSet>
     <DataSet Name="SalesPerson">
       <Query>
-        <DataSourceName>DataSource1</DataSourceName>
-        <CommandText>select distinct salespersonname from salesorderquote SOQ</CommandText>
+        <DataSourceName>PasReportDataSource</DataSourceName>
+        <QueryParameters>
+          <QueryParameter Name="@mastercompanyid">
+            <Value>=Parameters!mastercompanyid.Value</Value>
+          </QueryParameter>
+        </QueryParameters>
+        <CommandText>select distinct salespersonname from salesorderquote SOQ where (SOQ.MasterCompanyId = @mastercompanyid)</CommandText>
       </Query>
       <Fields>
         <Field Name="salespersonname">
@@ -200,9 +217,14 @@ LEFT JOIN SalesOrderQuotePart SOQP ON SOQ.SalesOrderQuoteId=SOQP.SalesOrderQuote
     </DataSet>
     <DataSet Name="CSR">
       <Query>
-        <DataSourceName>DataSource1</DataSourceName>
+        <DataSourceName>PasReportDataSource</DataSourceName>
+        <QueryParameters>
+          <QueryParameter Name="@mastercompanyid">
+            <Value>=Parameters!mastercompanyid.Value</Value>
+          </QueryParameter>
+        </QueryParameters>
         <CommandText>select distinct  ISNULL(SOQ.CustomerServiceRepName, 'NULL')
-from SalesOrderquote SOQ</CommandText>
+from SalesOrderquote SOQ where (SOQ.MasterCompanyId = @mastercompanyid)</CommandText>
       </Query>
       <Fields>
         <Field Name="ID">
@@ -213,7 +235,7 @@ from SalesOrderquote SOQ</CommandText>
     </DataSet>
     <DataSet Name="BU">
       <Query>
-        <DataSourceName>DataSource1</DataSourceName>
+        <DataSourceName>PasReportDataSource</DataSourceName>
         <QueryParameters>
           <QueryParameter Name="@Level1">
             <Value>=Parameters!level1.Value</Value>
@@ -238,7 +260,7 @@ from SalesOrderquote SOQ</CommandText>
     </DataSet>
     <DataSet Name="DIV">
       <Query>
-        <DataSourceName>DataSource1</DataSourceName>
+        <DataSourceName>PasReportDataSource</DataSourceName>
         <QueryParameters>
           <QueryParameter Name="@Level2">
             <Value>=Parameters!level2.Value</Value>
@@ -263,7 +285,7 @@ from SalesOrderquote SOQ</CommandText>
     </DataSet>
     <DataSet Name="DEPT">
       <Query>
-        <DataSourceName>DataSource1</DataSourceName>
+        <DataSourceName>PasReportDataSource</DataSourceName>
         <QueryParameters>
           <QueryParameter Name="@Level3">
             <Value>=Parameters!level3.Value</Value>
@@ -288,9 +310,9 @@ from SalesOrderquote SOQ</CommandText>
     </DataSet>
     <DataSet Name="DataSet2">
       <Query>
-        <DataSourceName>DataSource1</DataSourceName>
+        <DataSourceName>PasReportDataSource</DataSourceName>
         <CommandText>select Mastercompanyid, companyname
- from dbo.Mastercompany WHERE (MasterCompanyId = 7)</CommandText>
+ from dbo.Mastercompany WHERE (MasterCompanyId = 1)</CommandText>
       </Query>
       <Fields>
         <Field Name="Mastercompanyid">
@@ -3179,14 +3201,22 @@ from SalesOrderquote SOQ</CommandText>
       <DataType>DateTime</DataType>
       <Prompt>From SOQ Open Date*</Prompt>
     </ReportParameter>
-    <ReportParameter Name="ToDate">
-      <DataType>DateTime</DataType>
+    <ReportParameter Name="mastercompanyid">
+      <DataType>Integer</DataType>
       <DefaultValue>
-        <Values>
-          <Value>=Today()</Value>
-        </Values>
+        <DataSetReference>
+          <DataSetName>DataSet2</DataSetName>
+          <ValueField>Mastercompanyid</ValueField>
+        </DataSetReference>
       </DefaultValue>
-      <Prompt>To SOQ Open Date*</Prompt>
+      <Prompt>Company Name</Prompt>
+      <ValidValues>
+        <DataSetReference>
+          <DataSetName>DataSet2</DataSetName>
+          <ValueField>Mastercompanyid</ValueField>
+          <LabelField>companyname</LabelField>
+        </DataSetReference>
+      </ValidValues>
     </ReportParameter>
     <ReportParameter Name="level1">
       <DataType>String</DataType>
@@ -3206,27 +3236,19 @@ from SalesOrderquote SOQ</CommandText>
       </ValidValues>
       <MultiValue>true</MultiValue>
     </ReportParameter>
+    <ReportParameter Name="ToDate">
+      <DataType>DateTime</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>=Today()</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>To SOQ Open Date*</Prompt>
+    </ReportParameter>
     <ReportParameter Name="customername">
       <DataType>String</DataType>
       <AllowBlank>true</AllowBlank>
       <Prompt>Customer(Optional)</Prompt>
-    </ReportParameter>
-    <ReportParameter Name="mastercompanyid">
-      <DataType>Integer</DataType>
-      <DefaultValue>
-        <DataSetReference>
-          <DataSetName>DataSet2</DataSetName>
-          <ValueField>Mastercompanyid</ValueField>
-        </DataSetReference>
-      </DefaultValue>
-      <Prompt>Company Name</Prompt>
-      <ValidValues>
-        <DataSetReference>
-          <DataSetName>DataSet2</DataSetName>
-          <ValueField>Mastercompanyid</ValueField>
-          <LabelField>companyname</LabelField>
-        </DataSetReference>
-      </ValidValues>
     </ReportParameter>
     <ReportParameter Name="level2">
       <DataType>String</DataType>
@@ -3296,8 +3318,8 @@ from SalesOrderquote SOQ</CommandText>
           <ParameterName>FromDate</ParameterName>
         </CellDefinition>
         <CellDefinition>
-          <ColumnIndex>1</ColumnIndex>
-          <RowIndex>0</RowIndex>
+          <ColumnIndex>0</ColumnIndex>
+          <RowIndex>1</RowIndex>
           <ParameterName>ToDate</ParameterName>
         </CellDefinition>
         <CellDefinition>
@@ -3307,7 +3329,7 @@ from SalesOrderquote SOQ</CommandText>
         </CellDefinition>
         <CellDefinition>
           <ColumnIndex>1</ColumnIndex>
-          <RowIndex>1</RowIndex>
+          <RowIndex>0</RowIndex>
           <ParameterName>mastercompanyid</ParameterName>
         </CellDefinition>
         <CellDefinition>
@@ -3326,7 +3348,7 @@ from SalesOrderquote SOQ</CommandText>
           <ParameterName>level4</ParameterName>
         </CellDefinition>
         <CellDefinition>
-          <ColumnIndex>0</ColumnIndex>
+          <ColumnIndex>1</ColumnIndex>
           <RowIndex>1</RowIndex>
           <ParameterName>customername</ParameterName>
         </CellDefinition>
