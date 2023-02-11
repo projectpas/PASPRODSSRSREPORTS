@@ -8,11 +8,11 @@
     <OverwriteDataSources>True</OverwriteDataSources>
     <TargetServerVersion>SSRS2016</TargetServerVersion>
     <Platform>Win32</Platform>
-    <TargetReportFolder>7</TargetReportFolder>
+    <TargetReportFolder>1</TargetReportFolder>
     <TargetDatasetFolder>Datasets</TargetDatasetFolder>
     <TargetDatasourceFolder>Data Sources</TargetDatasourceFolder>
     <TargetReportPartFolder>Report Parts</TargetReportPartFolder>
-    <TargetServerURL>http://ec2amaz-8b6teq3:8084/ReportServer</TargetServerURL>
+    <TargetServerURL>http://hemant-pc/ReportServer</TargetServerURL>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'DebugLocal' ">
     <FullPath>DebugLocal</FullPath>
@@ -85,6 +85,8 @@
     <Report Include="Tab2.rdl" />
     <Report Include="Tech Productivity.rdl" />
     <Report Include="Tools.rdl" />
+    <Report Include="Traveler.rdl" />
+    <Report Include="TravelerReport.rdl" />
     <Report Include="Trial Bal Trends.rdl" />
     <Report Include="Trial Bal.rdl" />
     <Report Include="Vendor Utilization.rdl" />
