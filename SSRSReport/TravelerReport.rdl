@@ -10,129 +10,6 @@
     </DataSource>
   </DataSources>
   <DataSets>
-    <DataSet Name="DataSet1">
-      <Query>
-        <DataSourceName>PasReportDataSource</DataSourceName>
-        <CommandText>SELECT WorkOrderLaborId, WorkOrderLaborHeaderId, TaskId, ExpertiseId, EmployeeId, Hours, Adjustments, AdjustedHours, Memo, CreatedBy, UpdatedBy, CreatedDate, UpdatedDate, IsActive, IsDeleted, StartDate, EndDate, BillableId, 
-                  IsFromWorkFlow, MasterCompanyId, DirectLaborOHCost, BurdaenRatePercentageId, BurdenRateAmount, TotalCostPerHour, TotalCost, TaskStatusId, StatusChangedDate, TaskInstruction
-FROM     WorkOrderLabor
-WHERE  (WorkOrderLaborHeaderId = 199)</CommandText>
-      </Query>
-      <Fields>
-        <Field Name="WorkOrderLaborId">
-          <DataField>WorkOrderLaborId</DataField>
-          <rd:TypeName>System.Int64</rd:TypeName>
-        </Field>
-        <Field Name="WorkOrderLaborHeaderId">
-          <DataField>WorkOrderLaborHeaderId</DataField>
-          <rd:TypeName>System.Int64</rd:TypeName>
-        </Field>
-        <Field Name="TaskId">
-          <DataField>TaskId</DataField>
-          <rd:TypeName>System.Int64</rd:TypeName>
-        </Field>
-        <Field Name="ExpertiseId">
-          <DataField>ExpertiseId</DataField>
-          <rd:TypeName>System.Int16</rd:TypeName>
-        </Field>
-        <Field Name="EmployeeId">
-          <DataField>EmployeeId</DataField>
-          <rd:TypeName>System.Int64</rd:TypeName>
-        </Field>
-        <Field Name="Hours">
-          <DataField>Hours</DataField>
-          <rd:TypeName>System.Decimal</rd:TypeName>
-        </Field>
-        <Field Name="Adjustments">
-          <DataField>Adjustments</DataField>
-          <rd:TypeName>System.Decimal</rd:TypeName>
-        </Field>
-        <Field Name="AdjustedHours">
-          <DataField>AdjustedHours</DataField>
-          <rd:TypeName>System.Decimal</rd:TypeName>
-        </Field>
-        <Field Name="Memo">
-          <DataField>Memo</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="CreatedBy">
-          <DataField>CreatedBy</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="UpdatedBy">
-          <DataField>UpdatedBy</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="CreatedDate">
-          <DataField>CreatedDate</DataField>
-          <rd:TypeName>System.DateTime</rd:TypeName>
-        </Field>
-        <Field Name="UpdatedDate">
-          <DataField>UpdatedDate</DataField>
-          <rd:TypeName>System.DateTime</rd:TypeName>
-        </Field>
-        <Field Name="IsActive">
-          <DataField>IsActive</DataField>
-          <rd:TypeName>System.Boolean</rd:TypeName>
-        </Field>
-        <Field Name="IsDeleted">
-          <DataField>IsDeleted</DataField>
-          <rd:TypeName>System.Boolean</rd:TypeName>
-        </Field>
-        <Field Name="StartDate">
-          <DataField>StartDate</DataField>
-          <rd:TypeName>System.DateTime</rd:TypeName>
-        </Field>
-        <Field Name="EndDate">
-          <DataField>EndDate</DataField>
-          <rd:TypeName>System.DateTime</rd:TypeName>
-        </Field>
-        <Field Name="BillableId">
-          <DataField>BillableId</DataField>
-          <rd:TypeName>System.Int32</rd:TypeName>
-        </Field>
-        <Field Name="IsFromWorkFlow">
-          <DataField>IsFromWorkFlow</DataField>
-          <rd:TypeName>System.Boolean</rd:TypeName>
-        </Field>
-        <Field Name="MasterCompanyId">
-          <DataField>MasterCompanyId</DataField>
-          <rd:TypeName>System.Int32</rd:TypeName>
-        </Field>
-        <Field Name="DirectLaborOHCost">
-          <DataField>DirectLaborOHCost</DataField>
-          <rd:TypeName>System.Decimal</rd:TypeName>
-        </Field>
-        <Field Name="BurdaenRatePercentageId">
-          <DataField>BurdaenRatePercentageId</DataField>
-          <rd:TypeName>System.Int64</rd:TypeName>
-        </Field>
-        <Field Name="BurdenRateAmount">
-          <DataField>BurdenRateAmount</DataField>
-          <rd:TypeName>System.Decimal</rd:TypeName>
-        </Field>
-        <Field Name="TotalCostPerHour">
-          <DataField>TotalCostPerHour</DataField>
-          <rd:TypeName>System.Decimal</rd:TypeName>
-        </Field>
-        <Field Name="TotalCost">
-          <DataField>TotalCost</DataField>
-          <rd:TypeName>System.Decimal</rd:TypeName>
-        </Field>
-        <Field Name="TaskStatusId">
-          <DataField>TaskStatusId</DataField>
-          <rd:TypeName>System.Int64</rd:TypeName>
-        </Field>
-        <Field Name="StatusChangedDate">
-          <DataField>StatusChangedDate</DataField>
-          <rd:TypeName>System.DateTime</rd:TypeName>
-        </Field>
-        <Field Name="TaskInstruction">
-          <DataField>TaskInstruction</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-      </Fields>
-    </DataSet>
     <DataSet Name="GetReportsHeaderDetails">
       <Query>
         <DataSourceName>PasReportDataSource</DataSourceName>
@@ -264,399 +141,737 @@ WHERE  (WorkOrderLaborHeaderId = 199)</CommandText>
         </Field>
       </Fields>
     </DataSet>
+    <DataSet Name="GetCustomerAddress">
+      <Query>
+        <DataSourceName>PasReportDataSource</DataSourceName>
+        <QueryParameters>
+          <QueryParameter Name="@CustomerId">
+            <Value>=Parameters!CustomerId.Value</Value>
+          </QueryParameter>
+        </QueryParameters>
+        <CommandType>StoredProcedure</CommandType>
+        <CommandText>GetCustomerAddress</CommandText>
+      </Query>
+      <Fields>
+        <Field Name="AddressId">
+          <DataField>AddressId</DataField>
+          <rd:TypeName>System.Int64</rd:TypeName>
+        </Field>
+        <Field Name="Address1">
+          <DataField>Address1</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Address2">
+          <DataField>Address2</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Address3">
+          <DataField>Address3</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="City">
+          <DataField>City</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="StateOrProvince">
+          <DataField>StateOrProvince</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="PostalCode">
+          <DataField>PostalCode</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="CountryId">
+          <DataField>CountryId</DataField>
+          <rd:TypeName>System.Int16</rd:TypeName>
+        </Field>
+        <Field Name="Country">
+          <DataField>Country</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="SiteName">
+          <DataField>SiteName</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+      </Fields>
+    </DataSet>
+    <DataSet Name="GetWorkOrderPrintPdfData">
+      <Query>
+        <DataSourceName>PasReportDataSource</DataSourceName>
+        <QueryParameters>
+          <QueryParameter Name="@WorkorderId">
+            <Value>=Parameters!WorkOrderId.Value</Value>
+          </QueryParameter>
+          <QueryParameter Name="@workOrderPartNoId">
+            <Value>=Parameters!WorkOrderPartNoId.Value</Value>
+          </QueryParameter>
+        </QueryParameters>
+        <CommandType>StoredProcedure</CommandType>
+        <CommandText>GetWorkOrderPrintPdfData</CommandText>
+      </Query>
+      <Fields>
+        <Field Name="WorkOrderId">
+          <DataField>WorkOrderId</DataField>
+          <rd:TypeName>System.Int64</rd:TypeName>
+        </Field>
+        <Field Name="CustomerId">
+          <DataField>CustomerId</DataField>
+          <rd:TypeName>System.Int64</rd:TypeName>
+        </Field>
+        <Field Name="CustomerName">
+          <DataField>CustomerName</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Quantity">
+          <DataField>Quantity</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="QuoteNumber">
+          <DataField>QuoteNumber</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="qouteDate">
+          <DataField>qouteDate</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
+        <Field Name="NoofItem">
+          <DataField>NoofItem</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Preparedby">
+          <DataField>Preparedby</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="ronum">
+          <DataField>ronum</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="DatePrinted">
+          <DataField>DatePrinted</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
+        <Field Name="workreqDate">
+          <DataField>workreqDate</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
+        <Field Name="Priority">
+          <DataField>Priority</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="RestrictPMA">
+          <DataField>RestrictPMA</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="RestrictDER">
+          <DataField>RestrictDER</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="wty">
+          <DataField>wty</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="wtyCode">
+          <DataField>wtyCode</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="IncomingPN">
+          <DataField>IncomingPN</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="RevisedPN">
+          <DataField>RevisedPN</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="PNDesc">
+          <DataField>PNDesc</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="SerialNum">
+          <DataField>SerialNum</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="itemGroup">
+          <DataField>itemGroup</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="ACTailNum">
+          <DataField>ACTailNum</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="TSN">
+          <DataField>TSN</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="CSN">
+          <DataField>CSN</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Recd_Date">
+          <DataField>Recd_Date</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
+        <Field Name="Qte_Date">
+          <DataField>Qte_Date</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
+        <Field Name="Qte_Appvd_Date">
+          <DataField>Qte_Appvd_Date</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
+        <Field Name="Req_d_Date">
+          <DataField>Req_d_Date</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
+        <Field Name="Est_Ship_Date">
+          <DataField>Est_Ship_Date</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
+        <Field Name="TechNum">
+          <DataField>TechNum</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="WOStage">
+          <DataField>WOStage</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="WorkOrderNum">
+          <DataField>WorkOrderNum</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="billsitename">
+          <DataField>billsitename</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="billAddressLine1">
+          <DataField>billAddressLine1</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="billAddressLine2">
+          <DataField>billAddressLine2</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="billCity">
+          <DataField>billCity</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="billState">
+          <DataField>billState</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="billPostalCode">
+          <DataField>billPostalCode</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="billCountry">
+          <DataField>billCountry</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="billAttention">
+          <DataField>billAttention</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="shipSiteName">
+          <DataField>shipSiteName</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="shipAttention">
+          <DataField>shipAttention</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="shipAddressLine1">
+          <DataField>shipAddressLine1</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="shipAddressLine2">
+          <DataField>shipAddressLine2</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="shipCity">
+          <DataField>shipCity</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="shipState">
+          <DataField>shipState</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="shipPostalCode">
+          <DataField>shipPostalCode</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="shipCountry">
+          <DataField>shipCountry</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="ManagementStructureId">
+          <DataField>ManagementStructureId</DataField>
+          <rd:TypeName>System.Int64</rd:TypeName>
+        </Field>
+        <Field Name="WorkFlowWorkOrderId">
+          <DataField>WorkFlowWorkOrderId</DataField>
+          <rd:TypeName>System.Int64</rd:TypeName>
+        </Field>
+        <Field Name="Reference">
+          <DataField>Reference</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="UpdatedDate">
+          <DataField>UpdatedDate</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
+        <Field Name="ReceivedCond">
+          <DataField>ReceivedCond</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="WorkScope">
+          <DataField>WorkScope</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="PublicationName">
+          <DataField>PublicationName</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="OEM">
+          <DataField>OEM</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="TravelerName">
+          <DataField>TravelerName</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="IsDigitalForm">
+          <DataField>IsDigitalForm</DataField>
+          <rd:TypeName>System.Boolean</rd:TypeName>
+        </Field>
+        <Field Name="NHAPNs">
+          <DataField>NHAPNs</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+      </Fields>
+    </DataSet>
   </DataSets>
   <ReportSections>
     <ReportSection>
       <Body>
         <ReportItems>
-          <Rectangle Name="Rectangle4">
-            <ReportItems>
-              <Textbox Name="Textbox70">
-                <CanGrow>true</CanGrow>
-                <KeepTogether>true</KeepTogether>
-                <Paragraphs>
-                  <Paragraph>
-                    <TextRuns>
-                      <TextRun>
-                        <Value>ALL TASK</Value>
-                        <Style>
-                          <FontSize>8pt</FontSize>
-                          <FontWeight>Bold</FontWeight>
-                        </Style>
-                      </TextRun>
-                    </TextRuns>
-                    <Style />
-                  </Paragraph>
-                </Paragraphs>
-                <rd:DefaultName>Textbox70</rd:DefaultName>
-                <Top>0.01175in</Top>
-                <Left>0in</Left>
-                <Height>0.1453in</Height>
-                <Width>3.97222in</Width>
-                <Style>
-                  <Border>
-                    <Style>None</Style>
-                  </Border>
-                  <PaddingLeft>5pt</PaddingLeft>
-                  <PaddingRight>2pt</PaddingRight>
-                </Style>
-              </Textbox>
-            </ReportItems>
-            <KeepTogether>true</KeepTogether>
-            <Height>0.1907in</Height>
-            <Width>8in</Width>
+          <Tablix Name="Tablix10">
+            <TablixBody>
+              <TablixColumns>
+                <TablixColumn>
+                  <Width>4.00001in</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>4.00001in</Width>
+                </TablixColumn>
+              </TablixColumns>
+              <TablixRows>
+                <TablixRow>
+                  <Height>0.19167in</Height>
+                  <TablixCells>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Task">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Fields!Task.Value</Value>
+                                  <Style>
+                                    <FontFamily>Arial</FontFamily>
+                                    <FontSize>8pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Task</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>Solid</Style>
+                            </Border>
+                            <BackgroundColor>LightGrey</BackgroundColor>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                        <ColSpan>2</ColSpan>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell />
+                  </TablixCells>
+                </TablixRow>
+                <TablixRow>
+                  <Height>0.85in</Height>
+                  <TablixCells>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="TaskId">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>Begin</Value>
+                                  <Style>
+                                    <FontFamily>Arial</FontFamily>
+                                    <FontSize>8pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value />
+                                  <Style>
+                                    <FontSize>8pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>TaskId</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                            </Border>
+                            <TopBorder>
+                              <Style>None</Style>
+                            </TopBorder>
+                            <BottomBorder>
+                              <Color>Black</Color>
+                            </BottomBorder>
+                            <LeftBorder>
+                              <Color>Black</Color>
+                            </LeftBorder>
+                            <RightBorder>
+                              <Color>Black</Color>
+                            </RightBorder>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox149">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>End</Value>
+                                  <Style>
+                                    <FontFamily>Arial</FontFamily>
+                                    <FontSize>8pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value />
+                                  <Style>
+                                    <FontSize>8pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox149</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                            </Border>
+                            <TopBorder>
+                              <Style>None</Style>
+                            </TopBorder>
+                            <BottomBorder>
+                              <Color>Black</Color>
+                            </BottomBorder>
+                            <LeftBorder>
+                              <Style>None</Style>
+                            </LeftBorder>
+                            <RightBorder>
+                              <Color>Black</Color>
+                            </RightBorder>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                  </TablixCells>
+                </TablixRow>
+                <TablixRow>
+                  <Height>0.25in</Height>
+                  <TablixCells>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="TaskInstruction">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>Instructions:-  </Value>
+                                  <Style>
+                                    <FontSize>8pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                                <TextRun>
+                                  <Value>=Fields!TaskInstruction.Value</Value>
+                                  <Style>
+                                    <FontFamily>Arial</FontFamily>
+                                    <FontSize>8pt</FontSize>
+                                    <FontWeight>Normal</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>TaskInstruction</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>Solid</Style>
+                            </Border>
+                            <PaddingLeft>5pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                          </Style>
+                        </Textbox>
+                        <ColSpan>2</ColSpan>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell />
+                  </TablixCells>
+                </TablixRow>
+                <TablixRow>
+                  <Height>0.61609in</Height>
+                  <TablixCells>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox75">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>Print Findings, Actions Taken, or Discrepancies Here:</Value>
+                                  <Style>
+                                    <FontSize>8pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox74</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>Solid</Style>
+                            </Border>
+                            <PaddingLeft>5pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                          </Style>
+                        </Textbox>
+                        <ColSpan>2</ColSpan>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell />
+                  </TablixCells>
+                </TablixRow>
+                <TablixRow>
+                  <Height>0.25in</Height>
+                  <TablixCells>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox56">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>Technician:-                                             </Value>
+                                  <Style>
+                                    <FontFamily>Arial</FontFamily>
+                                    <FontSize>8pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                                <TextRun>
+                                  <Value>Date:-                                                     Inspector:-                                                Date:-</Value>
+                                  <Style>
+                                    <FontSize>8pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox14</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>None</Style>
+                            </Border>
+                            <BottomBorder>
+                              <Style>Solid</Style>
+                            </BottomBorder>
+                            <LeftBorder>
+                              <Style>Solid</Style>
+                            </LeftBorder>
+                            <RightBorder>
+                              <Style>Solid</Style>
+                            </RightBorder>
+                            <PaddingLeft>5pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>3pt</PaddingTop>
+                          </Style>
+                        </Textbox>
+                        <ColSpan>2</ColSpan>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell />
+                  </TablixCells>
+                </TablixRow>
+                <TablixRow>
+                  <Height>0.11667in</Height>
+                  <TablixCells>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox9">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value />
+                                  <Style>
+                                    <FontFamily>Arial</FontFamily>
+                                    <FontSize>8pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox9</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>None</Style>
+                            </Border>
+                            <PaddingLeft>5pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>3pt</PaddingTop>
+                          </Style>
+                        </Textbox>
+                        <ColSpan>2</ColSpan>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell />
+                  </TablixCells>
+                </TablixRow>
+              </TablixRows>
+            </TablixBody>
+            <TablixColumnHierarchy>
+              <TablixMembers>
+                <TablixMember />
+                <TablixMember />
+              </TablixMembers>
+            </TablixColumnHierarchy>
+            <TablixRowHierarchy>
+              <TablixMembers>
+                <TablixMember>
+                  <Group Name="Details" />
+                  <TablixMembers>
+                    <TablixMember />
+                    <TablixMember />
+                    <TablixMember />
+                    <TablixMember />
+                    <TablixMember />
+                    <TablixMember />
+                  </TablixMembers>
+                </TablixMember>
+              </TablixMembers>
+            </TablixRowHierarchy>
+            <DataSetName>GetLaborTaskList</DataSetName>
+            <Top>0.04075in</Top>
+            <Height>2.27442in</Height>
+            <Width>8.00001in</Width>
             <Style>
               <Border>
                 <Style>Solid</Style>
               </Border>
               <TopBorder>
-                <Style>None</Style>
+                <Color>Black</Color>
+                <Style>Solid</Style>
+                <Width>1pt</Width>
               </TopBorder>
-              <BackgroundColor>Silver</BackgroundColor>
-            </Style>
-          </Rectangle>
-          <Rectangle Name="Rectangle7">
-            <ReportItems>
-              <Line Name="Line4">
-                <Left>3.97222in</Left>
-                <Height>0.98985in</Height>
-                <Width>0in</Width>
-                <Style>
-                  <Border>
-                    <Style>Solid</Style>
-                  </Border>
-                </Style>
-              </Line>
-              <Textbox Name="Textbox71">
-                <CanGrow>true</CanGrow>
-                <KeepTogether>true</KeepTogether>
-                <Paragraphs>
-                  <Paragraph>
-                    <TextRuns>
-                      <TextRun>
-                        <Value>Begin</Value>
-                        <Style>
-                          <FontSize>8pt</FontSize>
-                          <FontWeight>Bold</FontWeight>
-                        </Style>
-                      </TextRun>
-                    </TextRuns>
-                    <Style>
-                      <TextAlign>Center</TextAlign>
-                    </Style>
-                  </Paragraph>
-                </Paragraphs>
-                <rd:DefaultName>Textbox71</rd:DefaultName>
-                <Top>0.03579in</Top>
-                <Left>1.3844in</Left>
-                <Height>0.15385in</Height>
-                <Width>1in</Width>
-                <ZIndex>1</ZIndex>
-                <Style>
-                  <Border>
-                    <Style>None</Style>
-                  </Border>
-                  <PaddingLeft>2pt</PaddingLeft>
-                  <PaddingRight>2pt</PaddingRight>
-                </Style>
-              </Textbox>
-              <Textbox Name="Textbox73">
-                <CanGrow>true</CanGrow>
-                <KeepTogether>true</KeepTogether>
-                <Paragraphs>
-                  <Paragraph>
-                    <TextRuns>
-                      <TextRun>
-                        <Value>End</Value>
-                        <Style>
-                          <FontFamily>Arial</FontFamily>
-                          <FontSize>8pt</FontSize>
-                          <FontWeight>Bold</FontWeight>
-                        </Style>
-                      </TextRun>
-                    </TextRuns>
-                    <Style>
-                      <TextAlign>Center</TextAlign>
-                    </Style>
-                  </Paragraph>
-                </Paragraphs>
-                <rd:DefaultName>Textbox71</rd:DefaultName>
-                <Top>0.03579in</Top>
-                <Left>5.48718in</Left>
-                <Height>0.15385in</Height>
-                <Width>1in</Width>
-                <ZIndex>2</ZIndex>
-                <Style>
-                  <Border>
-                    <Style>None</Style>
-                  </Border>
-                  <PaddingLeft>2pt</PaddingLeft>
-                  <PaddingRight>2pt</PaddingRight>
-                </Style>
-              </Textbox>
-            </ReportItems>
-            <KeepTogether>true</KeepTogether>
-            <Top>0.1907in</Top>
-            <Left>0in</Left>
-            <Height>0.98985in</Height>
-            <Width>8in</Width>
-            <ZIndex>1</ZIndex>
-            <Style>
-              <Border>
-                <Style>None</Style>
-              </Border>
               <BottomBorder>
+                <Color>Black</Color>
                 <Style>Solid</Style>
+                <Width>1pt</Width>
               </BottomBorder>
               <LeftBorder>
+                <Color>Black</Color>
                 <Style>Solid</Style>
+                <Width>1pt</Width>
               </LeftBorder>
               <RightBorder>
+                <Color>Black</Color>
                 <Style>Solid</Style>
+                <Width>1pt</Width>
               </RightBorder>
             </Style>
-          </Rectangle>
-          <Rectangle Name="Rectangle8">
-            <ReportItems>
-              <Textbox Name="Textbox74">
-                <CanGrow>true</CanGrow>
-                <KeepTogether>true</KeepTogether>
-                <Paragraphs>
-                  <Paragraph>
-                    <TextRuns>
-                      <TextRun>
-                        <Value>Print Findings, Actions Taken, or Discrepancies Here:</Value>
-                        <Style>
-                          <FontSize>8pt</FontSize>
-                          <FontWeight>Bold</FontWeight>
-                        </Style>
-                      </TextRun>
-                    </TextRuns>
-                    <Style />
-                  </Paragraph>
-                </Paragraphs>
-                <rd:DefaultName>Textbox74</rd:DefaultName>
-                <Top>0.01389in</Top>
-                <Height>0.16987in</Height>
-                <Width>3in</Width>
-                <Style>
-                  <Border>
-                    <Style>None</Style>
-                  </Border>
-                  <BottomBorder>
-                    <Style>Solid</Style>
-                    <Width>0.5pt</Width>
-                  </BottomBorder>
-                  <RightBorder>
-                    <Style>Solid</Style>
-                    <Width>0.5pt</Width>
-                  </RightBorder>
-                  <PaddingLeft>5pt</PaddingLeft>
-                  <PaddingRight>2pt</PaddingRight>
-                </Style>
-              </Textbox>
-            </ReportItems>
-            <KeepTogether>true</KeepTogether>
-            <Top>1.18056in</Top>
-            <Left>0in</Left>
-            <Height>0.7094in</Height>
-            <Width>8in</Width>
-            <ZIndex>2</ZIndex>
-            <Style>
-              <Border>
-                <Style>None</Style>
-              </Border>
-              <BottomBorder>
-                <Style>Solid</Style>
-              </BottomBorder>
-              <LeftBorder>
-                <Style>Solid</Style>
-              </LeftBorder>
-              <RightBorder>
-                <Style>Solid</Style>
-              </RightBorder>
-            </Style>
-          </Rectangle>
-          <Rectangle Name="Rectangle9">
-            <ReportItems>
-              <Textbox Name="Textbox52">
-                <CanGrow>true</CanGrow>
-                <KeepTogether>true</KeepTogether>
-                <Paragraphs>
-                  <Paragraph>
-                    <TextRuns>
-                      <TextRun>
-                        <Value>Technician:-</Value>
-                        <Style>
-                          <FontFamily>Arial</FontFamily>
-                          <FontSize>8pt</FontSize>
-                          <FontWeight>Bold</FontWeight>
-                        </Style>
-                      </TextRun>
-                    </TextRuns>
-                    <Style />
-                  </Paragraph>
-                </Paragraphs>
-                <rd:DefaultName>Textbox14</rd:DefaultName>
-                <Top>0.06944in</Top>
-                <Left>0.04249cm</Left>
-                <Height>0.14648in</Height>
-                <Width>0.72288in</Width>
-                <Style>
-                  <Border>
-                    <Style>None</Style>
-                  </Border>
-                  <PaddingLeft>2pt</PaddingLeft>
-                  <PaddingRight>2pt</PaddingRight>
-                </Style>
-              </Textbox>
-              <Textbox Name="Textbox53">
-                <CanGrow>true</CanGrow>
-                <KeepTogether>true</KeepTogether>
-                <Paragraphs>
-                  <Paragraph>
-                    <TextRuns>
-                      <TextRun>
-                        <Value>Date:-</Value>
-                        <Style>
-                          <FontFamily>Arial</FontFamily>
-                          <FontSize>8pt</FontSize>
-                          <FontWeight>Bold</FontWeight>
-                        </Style>
-                      </TextRun>
-                    </TextRuns>
-                    <Style />
-                  </Paragraph>
-                </Paragraphs>
-                <rd:DefaultName>Textbox14</rd:DefaultName>
-                <Top>0.06944in</Top>
-                <Left>5.08cm</Left>
-                <Height>0.14648in</Height>
-                <Width>0.3844in</Width>
-                <ZIndex>1</ZIndex>
-                <Style>
-                  <Border>
-                    <Style>None</Style>
-                  </Border>
-                  <PaddingLeft>2pt</PaddingLeft>
-                  <PaddingRight>2pt</PaddingRight>
-                </Style>
-              </Textbox>
-              <Textbox Name="Textbox54">
-                <CanGrow>true</CanGrow>
-                <KeepTogether>true</KeepTogether>
-                <Paragraphs>
-                  <Paragraph>
-                    <TextRuns>
-                      <TextRun>
-                        <Value>Inspector:-</Value>
-                        <Style>
-                          <FontFamily>Arial</FontFamily>
-                          <FontSize>8pt</FontSize>
-                          <FontWeight>Bold</FontWeight>
-                        </Style>
-                      </TextRun>
-                    </TextRuns>
-                    <Style />
-                  </Paragraph>
-                </Paragraphs>
-                <rd:DefaultName>Textbox14</rd:DefaultName>
-                <Top>0.06944in</Top>
-                <Left>10.0525cm</Left>
-                <Height>0.14648in</Height>
-                <Width>0.72288in</Width>
-                <ZIndex>2</ZIndex>
-                <Style>
-                  <Border>
-                    <Style>None</Style>
-                  </Border>
-                  <PaddingLeft>2pt</PaddingLeft>
-                  <PaddingRight>2pt</PaddingRight>
-                </Style>
-              </Textbox>
-              <Textbox Name="Textbox55">
-                <CanGrow>true</CanGrow>
-                <KeepTogether>true</KeepTogether>
-                <Paragraphs>
-                  <Paragraph>
-                    <TextRuns>
-                      <TextRun>
-                        <Value>Date:-</Value>
-                        <Style>
-                          <FontFamily>Arial</FontFamily>
-                          <FontSize>8pt</FontSize>
-                          <FontWeight>Bold</FontWeight>
-                        </Style>
-                      </TextRun>
-                    </TextRuns>
-                    <Style />
-                  </Paragraph>
-                </Paragraphs>
-                <rd:DefaultName>Textbox14</rd:DefaultName>
-                <Top>0.06944in</Top>
-                <Left>15.09001cm</Left>
-                <Height>0.14648in</Height>
-                <Width>0.38634in</Width>
-                <ZIndex>3</ZIndex>
-                <Style>
-                  <Border>
-                    <Style>None</Style>
-                  </Border>
-                  <PaddingLeft>2pt</PaddingLeft>
-                  <PaddingRight>2pt</PaddingRight>
-                </Style>
-              </Textbox>
-            </ReportItems>
-            <KeepTogether>true</KeepTogether>
-            <Top>1.88996in</Top>
-            <Left>0in</Left>
-            <Height>0.28686in</Height>
-            <Width>8in</Width>
-            <ZIndex>3</ZIndex>
-            <Style>
-              <Border>
-                <Style>None</Style>
-              </Border>
-              <BottomBorder>
-                <Style>Solid</Style>
-              </BottomBorder>
-              <LeftBorder>
-                <Style>Solid</Style>
-              </LeftBorder>
-              <RightBorder>
-                <Style>Solid</Style>
-              </RightBorder>
-            </Style>
-          </Rectangle>
-          <Rectangle Name="Rectangle10">
-            <KeepTogether>true</KeepTogether>
-            <Top>2.17682in</Top>
-            <Height>0.10256in</Height>
-            <Width>8in</Width>
-            <ZIndex>4</ZIndex>
-            <Style>
-              <Border>
-                <Style>None</Style>
-              </Border>
-              <BottomBorder>
-                <Style>Solid</Style>
-              </BottomBorder>
-              <LeftBorder>
-                <Style>Solid</Style>
-              </LeftBorder>
-              <RightBorder>
-                <Style>Solid</Style>
-              </RightBorder>
-            </Style>
-          </Rectangle>
+          </Tablix>
         </ReportItems>
-        <Height>4.16517in</Height>
+        <Height>2.39017in</Height>
         <Style />
       </Body>
-      <Width>10.60096in</Width>
+      <Width>11.52891in</Width>
       <Page>
         <PageHeader>
-          <Height>7.84263cm</Height>
+          <Height>8.01671cm</Height>
           <PrintOnFirstPage>true</PrintOnFirstPage>
           <PrintOnLastPage>true</PrintOnLastPage>
           <ReportItems>
@@ -679,7 +894,6 @@ WHERE  (WorkOrderLaborHeaderId = 199)</CommandText>
               </ReportItems>
               <KeepTogether>true</KeepTogether>
               <Top>0.01389in</Top>
-              <Left>0cm</Left>
               <Height>1.47351in</Height>
               <Width>3.97222in</Width>
               <Style>
@@ -768,7 +982,7 @@ WHERE  (WorkOrderLaborHeaderId = 199)</CommandText>
                     <Paragraph>
                       <TextRuns>
                         <TextRun>
-                          <Value>POWER AERO SUITES - DEMO</Value>
+                          <Value>=First(Fields!CompanyName.Value, "GetReportsHeaderDetails")</Value>
                           <Style>
                             <FontFamily>Arial</FontFamily>
                             <FontSize>9pt</FontSize>
@@ -782,7 +996,7 @@ WHERE  (WorkOrderLaborHeaderId = 199)</CommandText>
                     </Paragraph>
                   </Paragraphs>
                   <rd:DefaultName>Textbox13</rd:DefaultName>
-                  <Top>0.32137in</Top>
+                  <Top>0.31274in</Top>
                   <Left>0.07055cm</Left>
                   <Height>0.19137in</Height>
                   <Width>3.84945in</Width>
@@ -803,7 +1017,7 @@ WHERE  (WorkOrderLaborHeaderId = 199)</CommandText>
                     <Paragraph>
                       <TextRuns>
                         <TextRun>
-                          <Value>730 IVY GLEN COURT</Value>
+                          <Value>=First(Fields!Address1.Value, "GetReportsHeaderDetails")+ " " +First(Fields!Address2.Value, "GetReportsHeaderDetails")</Value>
                           <Style>
                             <FontFamily>Arial</FontFamily>
                             <FontSize>8pt</FontSize>
@@ -834,7 +1048,7 @@ WHERE  (WorkOrderLaborHeaderId = 199)</CommandText>
                     <Paragraph>
                       <TextRuns>
                         <TextRun>
-                          <Value>PROSPER TX, 75078</Value>
+                          <Value>=First(Fields!City.Value, "GetReportsHeaderDetails")+ " " +First(Fields!StateOrProvince.Value, "GetReportsHeaderDetails")+ ", " +First(Fields!PostalCode.Value, "GetReportsHeaderDetails")</Value>
                           <Style>
                             <FontFamily>Arial</FontFamily>
                             <FontSize>8pt</FontSize>
@@ -865,7 +1079,7 @@ WHERE  (WorkOrderLaborHeaderId = 199)</CommandText>
                     <Paragraph>
                       <TextRuns>
                         <TextRun>
-                          <Value>UNITED STATES</Value>
+                          <Value>=First(Fields!Country.Value, "GetReportsHeaderDetails")</Value>
                           <Style>
                             <FontFamily>Arial</FontFamily>
                             <FontSize>8pt</FontSize>
@@ -896,7 +1110,7 @@ WHERE  (WorkOrderLaborHeaderId = 199)</CommandText>
                     <Paragraph>
                       <TextRuns>
                         <TextRun>
-                          <Value>214-618-0390</Value>
+                          <Value>=First(Fields!PhoneNumber.Value, "GetReportsHeaderDetails") + " " + First(Fields!PhoneExt.Value, "GetReportsHeaderDetails")</Value>
                           <Style>
                             <FontFamily>Arial</FontFamily>
                             <FontSize>8pt</FontSize>
@@ -927,7 +1141,7 @@ WHERE  (WorkOrderLaborHeaderId = 199)</CommandText>
                     <Paragraph>
                       <TextRuns>
                         <TextRun>
-                          <Value>VISHAL@SILVERXIS.COM</Value>
+                          <Value>=First(Fields!Email.Value, "GetReportsHeaderDetails")</Value>
                           <Style>
                             <FontFamily>Arial</FontFamily>
                             <FontSize>8pt</FontSize>
@@ -938,7 +1152,7 @@ WHERE  (WorkOrderLaborHeaderId = 199)</CommandText>
                     </Paragraph>
                   </Paragraphs>
                   <rd:DefaultName>Textbox14</rd:DefaultName>
-                  <Top>1.1446in</Top>
+                  <Top>1.13071in</Top>
                   <Left>0.02778in</Left>
                   <Height>0.1495in</Height>
                   <Width>3.84945in</Width>
@@ -958,7 +1172,7 @@ WHERE  (WorkOrderLaborHeaderId = 199)</CommandText>
                     <Paragraph>
                       <TextRuns>
                         <TextRun>
-                          <Value>FAA-78798745 FUL-74125269</Value>
+                          <Value>=First(Fields!FAALicense.Value, "GetReportsHeaderDetails") + " " + First(Fields!EASALicense.Value, "GetReportsHeaderDetails")</Value>
                           <Style>
                             <FontFamily>Arial</FontFamily>
                             <FontSize>8pt</FontSize>
@@ -1045,7 +1259,6 @@ WHERE  (WorkOrderLaborHeaderId = 199)</CommandText>
               </ReportItems>
               <KeepTogether>true</KeepTogether>
               <Top>1.4874in</Top>
-              <Left>0cm</Left>
               <Height>0.2339in</Height>
               <Width>8in</Width>
               <ZIndex>2</ZIndex>
@@ -1071,7 +1284,7 @@ WHERE  (WorkOrderLaborHeaderId = 199)</CommandText>
                     <Paragraph>
                       <TextRuns>
                         <TextRun>
-                          <Value>AERO SUPPLYER</Value>
+                          <Value>=First(Fields!SiteName.Value, "GetCustomerAddress")</Value>
                           <Style>
                             <FontFamily>arial</FontFamily>
                             <FontSize>8pt</FontSize>
@@ -1101,7 +1314,7 @@ WHERE  (WorkOrderLaborHeaderId = 199)</CommandText>
                     <Paragraph>
                       <TextRuns>
                         <TextRun>
-                          <Value>PO-78912314</Value>
+                          <Value>=First(Fields!Address1.Value, "GetCustomerAddress")</Value>
                           <Style>
                             <FontFamily>Arial</FontFamily>
                             <FontSize>8pt</FontSize>
@@ -1131,7 +1344,7 @@ WHERE  (WorkOrderLaborHeaderId = 199)</CommandText>
                     <Paragraph>
                       <TextRuns>
                         <TextRun>
-                          <Value>RO-7845</Value>
+                          <Value>=First(Fields!Address2.Value, "GetCustomerAddress")</Value>
                           <Style>
                             <FontFamily>Arial</FontFamily>
                             <FontSize>8pt</FontSize>
@@ -1161,7 +1374,7 @@ WHERE  (WorkOrderLaborHeaderId = 199)</CommandText>
                     <Paragraph>
                       <TextRuns>
                         <TextRun>
-                          <Value>IRVING TX, 382345</Value>
+                          <Value>=First(Fields!City.Value, "GetCustomerAddress")+ " " +First(Fields!StateOrProvince.Value, "GetCustomerAddress")+ ", " + First(Fields!PostalCode.Value, "GetCustomerAddress")</Value>
                           <Style>
                             <FontFamily>Arial</FontFamily>
                             <FontSize>8pt</FontSize>
@@ -1191,7 +1404,7 @@ WHERE  (WorkOrderLaborHeaderId = 199)</CommandText>
                     <Paragraph>
                       <TextRuns>
                         <TextRun>
-                          <Value>ANGOLA</Value>
+                          <Value>=First(Fields!Country.Value, "GetCustomerAddress")</Value>
                           <Style>
                             <FontFamily>Arial</FontFamily>
                             <FontSize>8pt</FontSize>
@@ -1275,7 +1488,7 @@ WHERE  (WorkOrderLaborHeaderId = 199)</CommandText>
                     <Paragraph>
                       <TextRuns>
                         <TextRun>
-                          <Value>WOT-000001</Value>
+                          <Value>=First(Fields!TravelerName.Value, "GetWorkOrderPrintPdfData")</Value>
                           <Style>
                             <FontFamily>Arial</FontFamily>
                             <FontSize>8pt</FontSize>
@@ -1306,7 +1519,7 @@ WHERE  (WorkOrderLaborHeaderId = 199)</CommandText>
                     <Paragraph>
                       <TextRuns>
                         <TextRun>
-                          <Value>WO-000161</Value>
+                          <Value>=First(Fields!WorkOrderNum.Value, "GetWorkOrderPrintPdfData")</Value>
                           <Style>
                             <FontFamily>Arial</FontFamily>
                             <FontSize>8pt</FontSize>
@@ -1401,7 +1614,7 @@ WHERE  (WorkOrderLaborHeaderId = 199)</CommandText>
                     <Paragraph>
                       <TextRuns>
                         <TextRun>
-                          <Value>CAL</Value>
+                          <Value>=First(Fields!WorkScope.Value, "GetWorkOrderPrintPdfData")</Value>
                           <Style>
                             <FontFamily>Arial</FontFamily>
                             <FontSize>8pt</FontSize>
@@ -1432,7 +1645,7 @@ WHERE  (WorkOrderLaborHeaderId = 199)</CommandText>
                     <Paragraph>
                       <TextRuns>
                         <TextRun>
-                          <Value>DAVON BLANDA</Value>
+                          <Value>=First(Fields!ronum.Value, "GetWorkOrderPrintPdfData")</Value>
                           <Style>
                             <FontFamily>Arial</FontFamily>
                             <FontSize>8pt</FontSize>
@@ -1527,7 +1740,7 @@ WHERE  (WorkOrderLaborHeaderId = 199)</CommandText>
                     <Paragraph>
                       <TextRuns>
                         <TextRun>
-                          <Value>02/10/2023</Value>
+                          <Value>=First(Fields!Recd_Date.Value, "GetWorkOrderPrintPdfData")</Value>
                           <Style>
                             <FontFamily>Arial</FontFamily>
                             <FontSize>8pt</FontSize>
@@ -1558,7 +1771,7 @@ WHERE  (WorkOrderLaborHeaderId = 199)</CommandText>
                     <Paragraph>
                       <TextRuns>
                         <TextRun>
-                          <Value>EMP-000011</Value>
+                          <Value>=First(Fields!TechNum.Value, "GetWorkOrderPrintPdfData")</Value>
                           <Style>
                             <FontFamily>Arial</FontFamily>
                             <FontSize>8pt</FontSize>
@@ -1653,7 +1866,7 @@ WHERE  (WorkOrderLaborHeaderId = 199)</CommandText>
                     <Paragraph>
                       <TextRuns>
                         <TextRun>
-                          <Value>1235456</Value>
+                          <Value>=First(Fields!IncomingPN.Value, "GetWorkOrderPrintPdfData")</Value>
                           <Style>
                             <FontFamily>Arial</FontFamily>
                             <FontSize>8pt</FontSize>
@@ -1684,7 +1897,7 @@ WHERE  (WorkOrderLaborHeaderId = 199)</CommandText>
                     <Paragraph>
                       <TextRuns>
                         <TextRun>
-                          <Value>FUEL BOX</Value>
+                          <Value>=First(Fields!PNDesc.Value, "GetWorkOrderPrintPdfData")</Value>
                           <Style>
                             <FontFamily>Arial</FontFamily>
                             <FontSize>8pt</FontSize>
@@ -1810,21 +2023,24 @@ WHERE  (WorkOrderLaborHeaderId = 199)</CommandText>
                     <Paragraph>
                       <TextRuns>
                         <TextRun>
-                          <Value>1</Value>
+                          <Value>=Sum(Fields!Quantity.Value, "GetWorkOrderPrintPdfData")</Value>
                           <Style>
                             <FontFamily>Arial</FontFamily>
                             <FontSize>8pt</FontSize>
+                            <Format>#,0;(#,0)</Format>
                           </Style>
                         </TextRun>
                       </TextRuns>
-                      <Style />
+                      <Style>
+                        <TextAlign>Left</TextAlign>
+                      </Style>
                     </Paragraph>
                   </Paragraphs>
                   <rd:DefaultName>Textbox28</rd:DefaultName>
                   <Top>0.58992in</Top>
                   <Left>5.87048in</Left>
                   <Height>0.13644in</Height>
-                  <Width>1.99286in</Width>
+                  <Width>0.32619in</Width>
                   <ZIndex>25</ZIndex>
                   <Style>
                     <Border>
@@ -1905,7 +2121,7 @@ WHERE  (WorkOrderLaborHeaderId = 199)</CommandText>
                     <Paragraph>
                       <TextRuns>
                         <TextRun>
-                          <Value>NO</Value>
+                          <Value>=First(Fields!OEM.Value, "GetWorkOrderPrintPdfData")</Value>
                           <Style>
                             <FontFamily>Arial</FontFamily>
                             <FontSize>8pt</FontSize>
@@ -1936,7 +2152,7 @@ WHERE  (WorkOrderLaborHeaderId = 199)</CommandText>
                     <Paragraph>
                       <TextRuns>
                         <TextRun>
-                          <Value />
+                          <Value>=First(Fields!PublicationName.Value, "GetWorkOrderPrintPdfData")</Value>
                           <Style>
                             <FontFamily>Arial</FontFamily>
                             <FontSize>8pt</FontSize>
@@ -1999,7 +2215,7 @@ WHERE  (WorkOrderLaborHeaderId = 199)</CommandText>
                     <Paragraph>
                       <TextRuns>
                         <TextRun>
-                          <Value>REP</Value>
+                          <Value>=First(Fields!ReceivedCond.Value, "GetWorkOrderPrintPdfData")</Value>
                           <Style>
                             <FontFamily>Arial</FontFamily>
                             <FontSize>8pt</FontSize>
@@ -2058,7 +2274,6 @@ WHERE  (WorkOrderLaborHeaderId = 199)</CommandText>
               </ReportItems>
               <KeepTogether>true</KeepTogether>
               <Top>1.7213in</Top>
-              <Left>0cm</Left>
               <Height>1.35033in</Height>
               <Width>8in</Width>
               <ZIndex>3</ZIndex>
@@ -2085,7 +2300,7 @@ WHERE  (WorkOrderLaborHeaderId = 199)</CommandText>
           </Style>
         </PageHeader>
         <PageFooter>
-          <Height>2.54cm</Height>
+          <Height>1cm</Height>
           <PrintOnFirstPage>true</PrintOnFirstPage>
           <PrintOnLastPage>true</PrintOnLastPage>
           <ReportItems>
@@ -2155,7 +2370,7 @@ WHERE  (WorkOrderLaborHeaderId = 199)</CommandText>
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value>Page Count:</Value>
+                      <Value>of</Value>
                       <Style>
                         <FontFamily>arial</FontFamily>
                         <FontSize>8pt</FontSize>
@@ -2167,9 +2382,9 @@ WHERE  (WorkOrderLaborHeaderId = 199)</CommandText>
               </Paragraphs>
               <rd:DefaultName>Textbox15</rd:DefaultName>
               <Top>0.02778in</Top>
-              <Left>6.67148in</Left>
+              <Left>7.16827in</Left>
               <Height>0.19391in</Height>
-              <Width>0.68269in</Width>
+              <Width>0.18589in</Width>
               <ZIndex>2</ZIndex>
               <Style>
                 <Border>
@@ -2198,10 +2413,72 @@ WHERE  (WorkOrderLaborHeaderId = 199)</CommandText>
               </Paragraphs>
               <rd:DefaultName>Textbox16</rd:DefaultName>
               <Top>0.02778in</Top>
-              <Left>7.40742in</Left>
+              <Left>7.39583in</Left>
               <Height>0.19391in</Height>
-              <Width>0.3117in</Width>
+              <Width>0.147in</Width>
               <ZIndex>3</ZIndex>
+              <Style>
+                <Border>
+                  <Style>None</Style>
+                </Border>
+                <PaddingLeft>2pt</PaddingLeft>
+                <PaddingRight>2pt</PaddingRight>
+              </Style>
+            </Textbox>
+            <Textbox Name="Textbox59">
+              <CanGrow>true</CanGrow>
+              <KeepTogether>true</KeepTogether>
+              <Paragraphs>
+                <Paragraph>
+                  <TextRuns>
+                    <TextRun>
+                      <Value>Page</Value>
+                      <Style>
+                        <FontFamily>arial</FontFamily>
+                        <FontSize>8pt</FontSize>
+                      </Style>
+                    </TextRun>
+                  </TextRuns>
+                  <Style />
+                </Paragraph>
+              </Paragraphs>
+              <rd:DefaultName>Textbox15</rd:DefaultName>
+              <Top>0.02778in</Top>
+              <Left>6.61356in</Left>
+              <Height>0.19391in</Height>
+              <Width>0.33013in</Width>
+              <ZIndex>4</ZIndex>
+              <Style>
+                <Border>
+                  <Style>None</Style>
+                </Border>
+                <PaddingLeft>2pt</PaddingLeft>
+                <PaddingRight>2pt</PaddingRight>
+              </Style>
+            </Textbox>
+            <Textbox Name="Textbox60">
+              <CanGrow>true</CanGrow>
+              <KeepTogether>true</KeepTogether>
+              <Paragraphs>
+                <Paragraph>
+                  <TextRuns>
+                    <TextRun>
+                      <Value>=(Globals!PageNumber)</Value>
+                      <Style>
+                        <FontFamily>Arial</FontFamily>
+                        <FontSize>8pt</FontSize>
+                      </Style>
+                    </TextRun>
+                  </TextRuns>
+                  <Style />
+                </Paragraph>
+              </Paragraphs>
+              <rd:DefaultName>Textbox16</rd:DefaultName>
+              <Top>0.02778in</Top>
+              <Left>6.9697in</Left>
+              <Height>0.19391in</Height>
+              <Width>0.15691in</Width>
+              <ZIndex>5</ZIndex>
               <Style>
                 <Border>
                   <Style>None</Style>
@@ -2228,25 +2505,54 @@ WHERE  (WorkOrderLaborHeaderId = 199)</CommandText>
   <ReportParameters>
     <ReportParameter Name="WorkOrderPartNoId">
       <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>673</Value>
+        </Values>
+      </DefaultValue>
       <Prompt>WorkOrderPartNoId</Prompt>
-    </ReportParameter>
-    <ReportParameter Name="MasterCompanyId">
-      <DataType>String</DataType>
-      <Prompt>MasterCompanyId</Prompt>
     </ReportParameter>
     <ReportParameter Name="WorkOrderId">
       <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>654</Value>
+        </Values>
+      </DefaultValue>
       <Prompt>WorkOrderId</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="MasterCompanyId">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>1</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>MasterCompanyId</Prompt>
     </ReportParameter>
     <ReportParameter Name="ManagementStructureId">
       <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>1</Value>
+        </Values>
+      </DefaultValue>
       <Prompt>ManagementStructureId</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="CustomerId">
+      <DataType>Integer</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>74</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>Customer Id</Prompt>
     </ReportParameter>
     <ReportParameter Name="WorkFlowWorkOrderId">
       <DataType>String</DataType>
       <DefaultValue>
         <Values>
-          <Value>1</Value>
+          <Value>667</Value>
         </Values>
       </DefaultValue>
       <Prompt>WorkFlowWorkOrderId</Prompt>
@@ -2255,7 +2561,7 @@ WHERE  (WorkOrderLaborHeaderId = 199)</CommandText>
   <ReportParametersLayout>
     <GridLayoutDefinition>
       <NumberOfColumns>4</NumberOfColumns>
-      <NumberOfRows>2</NumberOfRows>
+      <NumberOfRows>3</NumberOfRows>
       <CellDefinitions>
         <CellDefinition>
           <ColumnIndex>0</ColumnIndex>
@@ -2278,9 +2584,14 @@ WHERE  (WorkOrderLaborHeaderId = 199)</CommandText>
           <ParameterName>ManagementStructureId</ParameterName>
         </CellDefinition>
         <CellDefinition>
-          <ColumnIndex>2</ColumnIndex>
-          <RowIndex>1</RowIndex>
+          <ColumnIndex>1</ColumnIndex>
+          <RowIndex>2</RowIndex>
           <ParameterName>WorkFlowWorkOrderId</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>0</ColumnIndex>
+          <RowIndex>2</RowIndex>
+          <ParameterName>CustomerId</ParameterName>
         </CellDefinition>
       </CellDefinitions>
     </GridLayoutDefinition>

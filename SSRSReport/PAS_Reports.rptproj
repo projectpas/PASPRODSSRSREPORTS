@@ -68,6 +68,7 @@
     <Report Include="Receive Customer Work.rdl" />
     <Report Include="Receiving Log.rdl" />
     <Report Include="Repair Order by WO and SO.rdl" />
+    <Report Include="Report1.rdl" />
     <Report Include="Report2.rdl" />
     <Report Include="Report5.rdl" />
     <Report Include="Sales Order - Turn Around Time (TAT).rdl" />

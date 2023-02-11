@@ -2,7 +2,8 @@
 <RptDataSource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Name="PasReportDataSource">
   <ConnectionProperties>
     <Extension>SQL</Extension>
-    <ConnectString>Data Source=pasproduction.cowaimrk3kqi.us-east-2.rds.amazonaws.com;Initial Catalog=PAS_PROD</ConnectString>
+    <ConnectString>Data Source=HEMANT-PC;Initial Catalog=PAS_DEV;MultipleActiveResultSets=True</ConnectString>
+    <IntegratedSecurity>true</IntegratedSecurity>
   </ConnectionProperties>
   <DataSourceID>70657cc9-ce50-44b0-9bda-0617cb621860</DataSourceID>
 </RptDataSource>
