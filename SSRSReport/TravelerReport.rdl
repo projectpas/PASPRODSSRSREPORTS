@@ -1992,7 +1992,7 @@
                     <Paragraph>
                       <TextRuns>
                         <TextRun>
-                          <Value>1SXD58164</Value>
+                          <Value>=First(Fields!SerialNum.Value, "GetWorkOrderPrintPdfData")</Value>
                           <Style>
                             <FontFamily>Arial</FontFamily>
                             <FontSize>8pt</FontSize>
@@ -2300,7 +2300,7 @@
           </Style>
         </PageHeader>
         <PageFooter>
-          <Height>1cm</Height>
+          <Height>2.54cm</Height>
           <PrintOnFirstPage>true</PrintOnFirstPage>
           <PrintOnLastPage>true</PrintOnLastPage>
           <ReportItems>
