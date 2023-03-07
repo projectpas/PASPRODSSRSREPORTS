@@ -58,6 +58,7 @@
     <Report Include="Customer Work.rdl" />
     <Report Include="Customer_Scorecard.rdl" />
     <Report Include="Detailed.rdl" />
+    <Report Include="Digital Traveler.rdl" />
     <Report Include="Labor Tracking 1.rdl" />
     <Report Include="Labor Tracking.rdl" />
     <Report Include="Open RO Details.rdl" />
@@ -87,7 +88,6 @@
     <Report Include="Tech Productivity.rdl" />
     <Report Include="Tools.rdl" />
     <Report Include="Traveler.rdl" />
-    <Report Include="TravelerReport.rdl" />
     <Report Include="Trial Bal Trends.rdl" />
     <Report Include="Trial Bal.rdl" />
     <Report Include="Vendor Utilization.rdl" />
